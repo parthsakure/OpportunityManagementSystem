@@ -22,4 +22,7 @@ public class opportunity_usecase_map {
     @ManyToOne
     private Opportunity opportunity;
 
+    @ManyToOne
+    private UseCase usecase;
+
 }

@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name="dealStage")
 @Data
-public class User {
+public class DealStage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
