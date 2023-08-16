@@ -1,2 +1,0 @@
-# OpportunityManagementSystem
-ATC Training
