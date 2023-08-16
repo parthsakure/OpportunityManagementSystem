@@ -1,5 +1,6 @@
 package com.atc.opportunity_management_system.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,9 +9,9 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
+@Table(name="industry")
 @Data
-@Table
-public class industry {
+public class Industry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int industryId;
