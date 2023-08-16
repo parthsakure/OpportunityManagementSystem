@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -31,8 +33,9 @@ public class User {
     @Column(name="contactNo", nullable = false)
     private String contactNo;
 
-    @Column(name="role", nullable = false)
-    private String role;
+    @ManyToOne
+    @JoinColumn(name="roleId")
+    private Role role;
 
     @Column(name="bbdBucks", nullable = false)
     private int bbdBucks;
