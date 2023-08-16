@@ -18,4 +18,7 @@ public class DeliveryModel {
 
     @Column(name="deliveryModel", nullable = false)
     private String deliveryModel;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliverymodel")
+    private List<Opportunity> opportunities = new ArrayList<>(); 
 }

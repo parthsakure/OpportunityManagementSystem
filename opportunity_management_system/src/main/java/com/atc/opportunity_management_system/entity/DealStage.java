@@ -21,4 +21,7 @@ public class DealStage {
 
     @Column(name="rewardPrice", nullable = false)
     private String rewardPrice;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealstage")
+    private List<Opportunity> opportunities = new ArrayList<>();
 }
