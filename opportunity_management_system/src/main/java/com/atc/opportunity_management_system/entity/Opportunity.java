@@ -45,4 +45,13 @@ public class Opportunity {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
     private List<UseCase> usecases = new ArrayList<>();
+
+    @ManyToOne
+    private DeliveryModel deliverymodel;
+
+    @ManyToOne
+    private DealStage dealstage;
+
+    @ManyToOne
+    private User user;
 }

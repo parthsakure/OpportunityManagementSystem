@@ -17,4 +17,7 @@ public class industry {
 
     private String companyName;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "industry")
+    private List<Company> companies =  new ArrayList<>();
+
 }

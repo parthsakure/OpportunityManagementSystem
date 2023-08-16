@@ -35,4 +35,13 @@ public class Company{
     
     @Column(name="active")
     private boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    private List<Users> users = new ArrayList<>();
+
+    @ManyToOne
+    private Industry industry;
+
+    @ManyToOne
+    private Location location;
 }

@@ -42,4 +42,14 @@ public class User {
 
     @Column(name="active", nullable = false)
     private Boolean active;
+
+    @ManyToOne
+    private Company company;
+
+    @ManyToOne
+    private Role role;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Opportunity> opportunities = new ArrayList<>();
+
 }
