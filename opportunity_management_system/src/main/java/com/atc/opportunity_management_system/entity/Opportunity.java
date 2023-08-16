@@ -8,6 +8,9 @@ import java.util.List;
 //mport org.hibernate.annotations.ManyToAny;
 
 import lombok.Data;
+// // import java.util.ArrayList;
+// // import java.util.List;
+// import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 //import jakarta.persistence.JoinColumn;
 //import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -43,7 +47,7 @@ public class Opportunity {
     
     private int dealOwnerId_fk;
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
+    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "opportunity")
     private List<UseCase> usecases = new ArrayList<>();
 
     @ManyToOne
