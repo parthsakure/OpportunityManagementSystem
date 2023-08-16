@@ -6,17 +6,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Data;
 
 @Entity
-@Table(name="useCase")
-@Data
-public class UseCase {
+@Table(name="roles")
+public class Role {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name="id")
+    private Integer id;
 
-    @Column(name="useCase", nullable = false)
-    private String useCase;
-
+    @Column(name="role")
+    private String role;
 }
