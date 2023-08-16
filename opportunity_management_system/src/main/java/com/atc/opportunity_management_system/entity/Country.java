@@ -55,5 +55,8 @@ public class Country {
 		return "Country [countryId=" + countryId + ", countryName=" + countryName + "]";
 	}
     
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
+    private List<Location> locations = new ArrayList<>();
+
     
 }

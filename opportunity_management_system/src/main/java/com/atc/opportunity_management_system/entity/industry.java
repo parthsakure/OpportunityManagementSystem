@@ -21,4 +21,7 @@ public class Industry {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "industry")
     private List<Company> companies =  new ArrayList<>();
 
+    // @ManyToOne 
+    // private Country country;
+
 }

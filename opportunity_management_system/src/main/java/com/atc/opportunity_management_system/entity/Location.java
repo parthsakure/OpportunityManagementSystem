@@ -68,6 +68,9 @@ public class Location {
 		return "Location [locationId=" + locationId + ", postalCode=" + postalCode + ", countryId_fk=" + countryId_fk
 				+ "]";
 	}
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
+    private List<Company> companies = new ArrayList<>();
     
  
 }

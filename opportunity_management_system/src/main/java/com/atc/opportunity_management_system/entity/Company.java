@@ -44,4 +44,8 @@ public class Company{
 
     @ManyToOne
     private Location location;
+
+    @ManyToOne
+    private Location location;
+
 }
