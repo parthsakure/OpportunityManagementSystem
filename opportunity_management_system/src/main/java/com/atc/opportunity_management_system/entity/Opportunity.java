@@ -41,5 +41,5 @@ public class Opportunity {
     private int dealOwnerId_fk;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
-    private List<Opportunity> opportunity_usecase_maps = new ArrayList<>();
+    private List<opportunity_usecase_map> opportunity_usecase_maps = new ArrayList<>();
 }
