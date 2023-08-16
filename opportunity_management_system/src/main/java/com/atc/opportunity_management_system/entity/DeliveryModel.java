@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name="deliveryModel")
 @Data
-public class User {
+public class DeliveryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
