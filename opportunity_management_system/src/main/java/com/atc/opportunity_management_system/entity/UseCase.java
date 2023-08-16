@@ -11,7 +11,7 @@ import lombok.Data;
 @Entity
 @Table(name="useCase")
 @Data
-public class User {
+public class UseCase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
