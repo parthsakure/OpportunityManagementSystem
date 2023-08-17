@@ -28,5 +28,4 @@ public class Country {
 	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "country")
     private List<Location> locations = new ArrayList<>();
 
-    
 }
