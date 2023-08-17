@@ -44,7 +44,7 @@ public class User {
     private String email;
 
     @Column(name="contactNo", nullable = false ,length = 15)
-    @Pattern(regexp="^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$")
+    @Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$")
     private String contactNo;
 
     @Column(name="bbdBucks", nullable = false, length = 7)
@@ -52,7 +52,7 @@ public class User {
     
     @Column(name="active")
     @Value("true")
-    private Boolean active;
+    private boolean active;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="roleId")

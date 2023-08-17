@@ -22,7 +22,7 @@ public class Country {
     private Integer countryId;
     
     @Column(name="countryName", nullable = false)
-    private String countryName;
+    private String country;
 
     
 	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "country")

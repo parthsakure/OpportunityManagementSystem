@@ -19,9 +19,9 @@ import lombok.Data;
 public class DeliveryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long deliveryModelId;
 
-    @Column(name="deliveryModel", nullable = false)
+    @Column(name="deliveryModelName", nullable = false)
     private String deliveryModel;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "deliveryModel")

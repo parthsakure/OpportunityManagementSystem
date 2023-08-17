@@ -19,9 +19,9 @@ import lombok.Data;
 public class DealStage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long dealStageId;
 
-    @Column(name="dealStage", nullable = false)
+    @Column(name="dealStageName", nullable = false)
     private String dealStage;
 
     @Column(name="rewardPrice", nullable = false)
