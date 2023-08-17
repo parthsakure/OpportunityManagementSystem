@@ -3,6 +3,8 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,9 +16,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Digits;
+// import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Positive;
+// import jakarta.validation.constraints.PositiveOrZero;
 @Entity
 @Table(name="company")
 @Data
@@ -24,32 +29,36 @@ public class Company{
   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="companyId")
+    @Column(name="companyId",unique = true)
     private Long companyId;
 
     @Column(name="companyName")
     @NotEmpty
     private String companyName;
 
-    @Column(name="industryId")
-    @NotEmpty
-    private int industryId;
+    // @Column(name="industryId")
+    // @NotEmpty
+    // private int industryId;
 
-    @Column(name="locationId")
-    @NotEmpty
-    private int locationId;
+    // @Column(name="locationId")
+    // @NotEmpty
+    // private int locationId;
 
     @Column(name="websiteUrl")
     @NotEmpty
+    @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
     private String websiteUrl;
 
     
     @Column(name="years")
     @NotEmpty
+    @Positive(message = "the company needs to be atleast a year old")
+    @Digits(fraction = 0, integer = 3, message ="years can't be in fraction")
     private int years;
     
     @Column(name="active")
     @NotEmpty
+    @Value("true")
     private boolean active;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
