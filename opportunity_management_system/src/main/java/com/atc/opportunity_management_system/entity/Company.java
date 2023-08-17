@@ -40,7 +40,7 @@ public class Company{
 
     @Column(name="websiteUrl")
     @NotEmpty
-    @Pattern
+    @Pattern(regexp = "(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z0-9]{2,}(\\.[a-zA-Z0-9]{2,})(\\.[a-zA-Z0-9]{2,})?")
     private String websiteUrl;
 
     
