@@ -15,7 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.pattern;
+import jakarta.validation.constraints.Pattern;
 @Entity
 @Table(name="company")
 @Data
@@ -27,7 +27,7 @@ public class Company{
     private Long companyId;
 
     @Column(name="companyName")
-    @NotEmpty
+    @NotEmpty(message = "CompanyName cannot be empty")
     private String companyName;
 
     // @Column(name="industryId")
@@ -39,30 +39,30 @@ public class Company{
     // private int locationId;
 
     @Column(name="websiteUrl")
-    @NotEmpty
-    @pattern
+    @NotEmpty(message = "WebsiteUrl cannot be empty")
+    @Pattern(regexp = "(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})(\\.[a-zA-Z]{2,})?\\/[a-zA-Z0-9]{2,}|((https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})(\\.[a-zA-Z]{2,})?)|(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z0-9]{2,}\\.[a-zA-Z0-9]{2,}\\.[a-zA-Z0-9]{2,}(\\.[a-zA-Z0-9]{2,})?")
     private String websiteUrl;
 
     
     @Column(name="years")
-    @NotEmpty
+    @NotEmpty(message = "Years cannot be empty")
     private int years;
     
     @Column(name="active")
-    @NotEmpty
+    @NotEmpty(message = "Active cannot be empty")
     private boolean active;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
-    @NotEmpty
+    @NotEmpty(message = "User cannot be empty")
     private List<User> users = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @NotEmpty
+    @NotEmpty(message = "industry cannot be empty")
     @JoinColumn(name="industry")
     private Industry industry;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @NotEmpty
+    @NotEmpty(message = "Location cannot be empty")
     @JoinColumn(name="location")
     private Location location;
 
