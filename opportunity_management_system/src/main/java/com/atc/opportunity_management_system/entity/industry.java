@@ -20,7 +20,7 @@ public class Industry {
     @Column(name="industryId")
     private int industryId;
 
-    @Column(name="industryName")
+    @Column(name="industryName",unique=true)
     private String industry;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "industry")

@@ -22,7 +22,7 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long locationId;
 	
-    @Column(name="postalCode", nullable = false)
+    @Column(name="postalCode", nullable = false,length = 10)
 	private int postalCode;
 	
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
