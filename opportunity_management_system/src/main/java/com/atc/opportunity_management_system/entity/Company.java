@@ -30,17 +30,17 @@ public class Company{
     @NotEmpty(message = "CompanyName cannot be empty")
     private String companyName;
 
-    // @Column(name="industryId")
-    // @NotEmpty
-    // private int industryId;
+    @Column(name="industryId")
+    @NotEmpty
+    private int industryId;
 
-    // @Column(name="locationId")
-    // @NotEmpty
-    // private int locationId;
+    @Column(name="locationId")
+    @NotEmpty
+    private int locationId;
 
     @Column(name="websiteUrl")
-    @NotEmpty(message = "WebsiteUrl cannot be empty")
-    @Pattern(regexp = "(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})(\\.[a-zA-Z]{2,})?\\/[a-zA-Z0-9]{2,}|((https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z]{2,}(\\.[a-zA-Z]{2,})(\\.[a-zA-Z]{2,})?)|(https:\\/\\/www\\.|http:\\/\\/www\\.|https:\\/\\/|http:\\/\\/)?[a-zA-Z0-9]{2,}\\.[a-zA-Z0-9]{2,}\\.[a-zA-Z0-9]{2,}(\\.[a-zA-Z0-9]{2,})?")
+    @NotEmpty
+    @Pattern
     private String websiteUrl;
 
     

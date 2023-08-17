@@ -2,6 +2,7 @@ package com.atc.opportunity_management_system.entity;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 
 import jakarta.persistence.CascadeType;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -49,7 +51,8 @@ public class User {
     private int bbdBucks=0;
     
     @Column(name="active")
-    private Boolean active=true;
+    @Value("true")
+    private Boolean active;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="roleId")
