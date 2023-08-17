@@ -21,7 +21,7 @@ import lombok.Data;
 public class UseCase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name="useCase", nullable = false)
     private String useCase;
