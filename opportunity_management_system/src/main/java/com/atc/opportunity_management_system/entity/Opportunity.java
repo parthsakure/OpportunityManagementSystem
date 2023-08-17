@@ -1,15 +1,10 @@
 package com.atc.opportunity_management_system.entity;
 
 import java.math.BigDecimal;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-// import java.time.Instant;
-// import java.time.LocalDate;
-// import org.hibernate.annotations.Check;
-// import org.hibernate.validator.constraints.Currency;
-// import io.micrometer.common.lang.Nullable;
+import io.micrometer.common.lang.Nullable;
 import lombok.Data;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -38,27 +33,28 @@ public class Opportunity {
     private int opportunityId;
 
     @Column(name="title")
-    @NotEmpty
+    @NotEmpty(message = "Title cannot be empty")
     private String title;
 
     @Column(name="description")
-    @NotEmpty
+    @NotEmpty(message = "Description cannot be empty")
     private String description;
 
     @Column(name="primaryNeed")
-    @NotEmpty
+    @NotEmpty(message = "PrimaryNeed cannot be empty")
     private String primaryNeed;
 
     @Column(name="expectedMonthlyRevenue")
-    @NotEmpty
+    @NotEmpty(message = "ExpectedMonthlyRevenue cannot be empty")
     private BigDecimal expectedMonthlyRevenue;
 
     @Column(name="expectedLaunchDate")
-    @NotEmpty
+    @NotEmpty(message = "ExpectedLaunchDate cannot be empty")
     @Future(message = "Expected launch date must be in the future")
     private Date expectedLaunchDate;
 
     @Column(name="closedLostReason") 
+    @Nullable
     private String  closedLostReason;
     
 
@@ -68,25 +64,25 @@ public class Opportunity {
         joinColumns=@JoinColumn(name="opportunity"),
         inverseJoinColumns=@JoinColumn(name="useCase")
     )
-    @NotEmpty
+    @NotEmpty(message = "UseCases cannot be empty")
     private List<UseCase> usecases = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="deliveryModel")
-    @NotEmpty
+    @NotEmpty(message = "DeliveryModel cannot be empty")
     private DeliveryModel deliveryModel;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="dealStage")
-    @NotEmpty
+    @NotEmpty(message = "DealStage cannot be empty")
     private DealStage dealStage;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="user")
-    @NotEmpty
+    @NotEmpty(message = "DealOwner cannot be empty")
     private User dealOwner;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "opportunity")
-    @NotEmpty
+    @NotEmpty(message = "Transactions cannot be empty")
     private List<Transaction> transactions;
 }

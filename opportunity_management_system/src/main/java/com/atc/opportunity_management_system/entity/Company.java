@@ -33,7 +33,7 @@ public class Company{
     private Long companyId;
 
     @Column(name="companyName")
-    @NotEmpty
+    @NotEmpty(message = "CompanyName cannot be empty")
     private String companyName;
 
     // @Column(name="industryId")
@@ -54,24 +54,26 @@ public class Company{
     @NotEmpty
     @Positive(message = "the company needs to be atleast a year old")
     @Digits(fraction = 0, integer = 3, message ="years can't be in fraction")
+    @NotEmpty(message = "Years cannot be empty")
     private int years;
     
     @Column(name="active")
     @NotEmpty
     @Value("true")
+    @NotEmpty(message = "Active cannot be empty")
     private boolean active;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
-    @NotEmpty
+    @NotEmpty(message = "User cannot be empty")
     private List<User> users = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @NotEmpty
+    @NotEmpty(message = "industry cannot be empty")
     @JoinColumn(name="industry")
     private Industry industry;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @NotEmpty
+    @NotEmpty(message = "Location cannot be empty")
     @JoinColumn(name="location")
     private Location location;
 
