@@ -1,4 +1,4 @@
-package com.atc.opportunity_management_system.service;
+package com.atc.opportunity_management_system.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
