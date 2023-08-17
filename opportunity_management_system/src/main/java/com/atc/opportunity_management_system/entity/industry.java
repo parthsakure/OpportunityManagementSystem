@@ -26,8 +26,6 @@ public class Industry {
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "industry")
     private List<Company> companies =  new ArrayList<>();
 
-    public Industry(String industry){
-        this.industry = industry;
-    }
+
 
 }
