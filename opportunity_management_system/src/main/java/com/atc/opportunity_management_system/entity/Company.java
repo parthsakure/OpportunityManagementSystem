@@ -27,11 +27,11 @@ public class Company{
     @Column(name="companyName")
     private String companyName;
 
-    @Column(name="industryId_fk")
-    private int industryId_fk;
+    // @Column(name="industryId")
+    // private int industryId;
 
-    @Column(name="location_fk")
-    private int location_fk;
+    // @Column(name="locationId")
+    // private int locationId;
 
     @Column(name="websiteUrl")
     private String websiteUrl;
@@ -46,12 +46,12 @@ public class Company{
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
     private List<User> users = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name="industryId")
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="industry")
     private Industry industry;
 
-    @ManyToOne
-    @JoinColumn(name="locationId")
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="location")
     private Location location;
 
 

@@ -24,6 +24,12 @@ public class DeliveryModel {
     @Column(name="deliveryModel", nullable = false)
     private String deliveryModel;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "deliverymodel")
-    private List<Opportunity> opportunities = new ArrayList<>(); 
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "deliveryModel")
+    private List<Opportunity> opportunities = new ArrayList<>();
+
+    public DeliveryModel(String deliveryModel) {
+        this.deliveryModel = deliveryModel;
+    } 
+
+    
 }

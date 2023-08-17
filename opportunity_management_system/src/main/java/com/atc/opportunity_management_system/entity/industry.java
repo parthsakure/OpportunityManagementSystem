@@ -20,13 +20,14 @@ public class Industry {
     @Column(name="industryId")
     private int industryId;
 
-    @Column(name="companyName")
-    private String companyName;
+    @Column(name="industryName")
+    private String industry;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "industry")
     private List<Company> companies =  new ArrayList<>();
 
-    // @ManyToOne 
-    // private Country country;
+    public Industry(String industry){
+        this.industry = industry;
+    }
 
 }

@@ -4,11 +4,14 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -21,15 +24,17 @@ public class Transaction{
 	private Long transactionId;
     
     @CreationTimestamp
-    private Timestamp transactiontime;
+    private Timestamp transactionTime;
     
-	
-    @Column(name="userId_fk", nullable = false)
-	private Long userId_fk;
-    
-    @Column(name="opportunityId_fk", nullable = false)
-	private Long opportunityId_fk;
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="user", nullable = false)
+	private User user;
+
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="opportunity", nullable = false)
+	private Opportunity opportunity;
  
-    @Column(name="dealStageId_fk", nullable = false)
-	private Long dealStageId_fk;
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name="dealStage", nullable = false)
+	private DealStage dealStage;
 }

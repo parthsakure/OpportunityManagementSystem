@@ -25,8 +25,16 @@ public class DealStage {
     private String dealStage;
 
     @Column(name="rewardPrice", nullable = false)
-    private String rewardPrice;
+    private int rewardPrice;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealstage")
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealStage")
     private List<Opportunity> opportunities = new ArrayList<>();
+
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealStage")
+    private List<Transaction> transactions = new ArrayList<>();
+
+    public DealStage(String dealStage, int rewardPrice) {
+        this.dealStage = dealStage;
+        this.rewardPrice = rewardPrice;
+    }
 }

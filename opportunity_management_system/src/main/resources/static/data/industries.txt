@@ -1,0 +1,28 @@
+Aerospace
+Agriculture
+Automotive
+Computers & Electronics
+Consumer Goods
+Education
+Financial Services
+Gaming
+Government
+Healthcare
+Hospitality
+Life Sciences
+Manufacturing
+Marketing & Advertising
+Media & Entertainment
+Mining
+Non-Profit Organization
+Energy - Oil & Gas
+Other
+Energy - Power & Utilities
+Professional Services
+Real Estate & Construction
+Retail
+Software & Internet
+Telecommunications
+Transportation & Logistics
+Travel
+Wholesale & Distribution
