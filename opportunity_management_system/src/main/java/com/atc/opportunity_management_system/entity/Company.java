@@ -14,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -25,38 +24,33 @@ public class Company{
   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="companyId",unique = true)
+    @Column(name="companyId")
     private Long companyId;
 
-    @Column(name="companyName",unique = true)
+    @Column(name="companyName")
     @NotEmpty
     private String companyName;
 
-    // @Column(name="industryId")
-    // @NotEmpty
-    // private int industryId;
+    @Column(name="industryId")
+    @NotEmpty
+    private int industryId;
 
-    // @Column(name="locationId")
-    // @NotEmpty
-    // private int locationId;
+    @Column(name="locationId")
+    @NotEmpty
+    private int locationId;
 
     @Column(name="websiteUrl")
     @NotEmpty
-    @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
     private String websiteUrl;
 
     
-    @Column(name="years",length=3)
-    //to check if the number is positive
-    @PositiveOrZero(message = "should be a positive number")
-     //to check if the number is not fraction
-    @Digits(fraction = 0, integer = 3, message ="years are not allowed in fraction")
+    @Column(name="years")
     @NotEmpty
     private int years;
     
     @Column(name="active")
     @NotEmpty
-    private boolean active=true;
+    private boolean active;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
     @NotEmpty
