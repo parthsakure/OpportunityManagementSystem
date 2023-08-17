@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 @Entity
 @Table(name="company")
 @Data
@@ -25,32 +26,41 @@ public class Company{
     private Long companyId;
 
     @Column(name="companyName")
+    @NotEmpty
     private String companyName;
 
-    // @Column(name="industryId")
-    // private int industryId;
+    @Column(name="industryId")
+    @NotEmpty
+    private int industryId;
 
-    // @Column(name="locationId")
-    // private int locationId;
+    @Column(name="locationId")
+    @NotEmpty
+    private int locationId;
 
     @Column(name="websiteUrl")
+    @NotEmpty
     private String websiteUrl;
 
     
     @Column(name="years")
+    @NotEmpty
     private int years;
     
     @Column(name="active")
+    @NotEmpty
     private boolean active;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
+    @NotEmpty
     private List<User> users = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @NotEmpty
     @JoinColumn(name="industry")
     private Industry industry;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @NotEmpty
     @JoinColumn(name="location")
     private Location location;
 
