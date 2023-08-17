@@ -1,10 +1,16 @@
 package com.atc.opportunity_management_system.entity;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Check;
+import org.hibernate.validator.constraints.Currency;
+
+import io.micrometer.common.lang.Nullable;
 import lombok.Data;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,6 +24,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -31,21 +39,27 @@ public class Opportunity {
     private int opportunityId;
 
     @Column(name="title")
+    @NotEmpty
     private String title;
 
     @Column(name="description")
+    @NotEmpty
     private String description;
 
     @Column(name="primaryNeed")
+    @NotEmpty
     private String primaryNeed;
 
     @Column(name="expectedMonthlyRevenue")
+    @NotEmpty
     private BigDecimal expectedMonthlyRevenue;
 
-    @Column(name="expectedLAunchDate")
-    private Date expectedLAunchDate;
+    @Column(name="expectedLaunchDate")
+    @NotEmpty
+    @Future(message = "Expected launch date must be in the future")
+    private Date expectedLaunchDate;
 
-    @Column(name="closedLostReason")
+    @Column(name="closedLostReason") 
     private String  closedLostReason;
     
 
@@ -55,20 +69,25 @@ public class Opportunity {
         joinColumns=@JoinColumn(name="opportunity"),
         inverseJoinColumns=@JoinColumn(name="useCase")
     )
+    @NotEmpty
     private List<UseCase> usecases = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="deliveryModel")
+    @NotEmpty
     private DeliveryModel deliveryModel;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="dealStage")
+    @NotEmpty
     private DealStage dealStage;
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name="user")
+    @NotEmpty
     private User dealOwner;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "opportunity")
+    @NotEmpty
     private List<Transaction> transactions;
 }
