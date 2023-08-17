@@ -6,20 +6,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+
 @Entity
 @Table(name="role")
+@Data
 public class Role {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Integer roleId;
 
-    @Column(name="role")
+    @Column(name="roleName", nullable = false)
     private String role;
 
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "role")

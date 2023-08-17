@@ -21,9 +21,9 @@ import lombok.Data;
 public class UseCase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer useCaseId;
 
-    @Column(name="useCase", nullable = false)
+    @Column(name="useCaseName", nullable = false)
     private String useCase;
 
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
