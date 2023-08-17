@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.pattern;
 @Entity
 @Table(name="company")
 @Data
@@ -29,16 +30,17 @@ public class Company{
     @NotEmpty
     private String companyName;
 
-    @Column(name="industryId")
-    @NotEmpty
-    private int industryId;
+    // @Column(name="industryId")
+    // @NotEmpty
+    // private int industryId;
 
-    @Column(name="locationId")
-    @NotEmpty
-    private int locationId;
+    // @Column(name="locationId")
+    // @NotEmpty
+    // private int locationId;
 
     @Column(name="websiteUrl")
     @NotEmpty
+    @pattern
     private String websiteUrl;
 
     
