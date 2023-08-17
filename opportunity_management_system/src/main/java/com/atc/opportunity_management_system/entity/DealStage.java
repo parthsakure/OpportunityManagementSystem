@@ -33,8 +33,4 @@ public class DealStage {
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealStage")
     private List<Transaction> transactions = new ArrayList<>();
 
-    public DealStage(String dealStage, int rewardPrice) {
-        this.dealStage = dealStage;
-        this.rewardPrice = rewardPrice;
-    }
 }

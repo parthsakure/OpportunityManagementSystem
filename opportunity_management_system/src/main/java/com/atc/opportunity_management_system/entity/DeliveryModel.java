@@ -27,9 +27,6 @@ public class DeliveryModel {
     @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "deliveryModel")
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    public DeliveryModel(String deliveryModel) {
-        this.deliveryModel = deliveryModel;
-    } 
 
     
 }
