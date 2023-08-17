@@ -14,7 +14,7 @@ import lombok.Data;
 @Entity
 @Table(name="industry")
 @Data
-public class industry {
+public class Industry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="industryId")
