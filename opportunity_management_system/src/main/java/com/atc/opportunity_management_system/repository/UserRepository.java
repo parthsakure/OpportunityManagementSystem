@@ -7,5 +7,7 @@ import com.atc.opportunity_management_system.entity.User;
 
 @RepositoryRestResource(path = "users")
 public interface UserRepository extends JpaRepository<User,Long> {
+
+    User findByEmail(String email);
     
 }
