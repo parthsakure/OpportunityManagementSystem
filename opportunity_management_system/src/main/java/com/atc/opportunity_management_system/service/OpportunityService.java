@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.atc.opportunity_management_system.entity.DealStage;
 import com.atc.opportunity_management_system.entity.Opportunity;
 import com.atc.opportunity_management_system.entity.User;
+import com.atc.opportunity_management_system.exception.OpportunityNotFoundException;
 import com.atc.opportunity_management_system.repository.OpportunityRepository;
 import com.atc.opportunity_management_system.repository.UserRepository;
 
@@ -20,7 +21,8 @@ public class OpportunityService {
     public Opportunity changedealstage(int opportunityid, DealStage newdealStage)
     {
         //changing deal stage
-        Opportunity opportunitytoupdate = opportunityRepository.findById(opportunityid).get();
+        Opportunity opportunitytoupdate = opportunityRepository.findById(opportunityid)
+            .orElseThrow(() -> new OpportunityNotFoundException(opportunityid));
         opportunitytoupdate.setDealStage(newdealStage);
         opportunityRepository.save(opportunitytoupdate);
 

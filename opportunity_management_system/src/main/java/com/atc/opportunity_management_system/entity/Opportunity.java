@@ -20,6 +20,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PositiveOrZero;
 
 
 @Entity
@@ -46,6 +47,7 @@ public class Opportunity {
 
     @Column(name="expectedMonthlyRevenue")
     @NotEmpty(message = "ExpectedMonthlyRevenue cannot be empty")
+    @PositiveOrZero(message = "The ExpectedMonthly revenue cannot be negative")
     private BigDecimal expectedMonthlyRevenue;
 
     @Column(name="expectedLaunchDate")
