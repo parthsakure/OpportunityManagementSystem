@@ -1,5 +1,6 @@
 package com.atc.opportunity_management_system.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -73,7 +74,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getRole()));
+        List<GrantedAuthority>authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority(this.role.getRole()));
+        return authorities;
     }
 
     @Override
