@@ -20,10 +20,11 @@ public class AuthController {
     private AuthService authService;
     
     @GetMapping("authorize")
-    public Map<String,Object> authorize(@AuthenticationPrincipal OAuth2User user){
+    public RedirectView authorize(@AuthenticationPrincipal OAuth2User user){
         Map<String,Object>userData = user.getAttributes();
         authService.authoriseUser(userData);
-        return userData;
-        // return new RedirectView("/api");
+        // return userData;
+        return new RedirectView("/api");
     }
+
 }

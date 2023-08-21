@@ -1,8 +1,13 @@
 package com.atc.opportunity_management_system.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.atc.opportunity_management_system.entity.User;
@@ -20,24 +25,31 @@ public class AuthService {
     public void authoriseUser(Map<String, Object> userData) {
         String userEmail = userData.get("email").toString();
         String[] name = userData.get("name").toString().split(" ");
-        User user = userRepository.findByEmail(userEmail);
+        User user = userRepository.findByEmail(userEmail).get();
         if(user==null){
             // System.out.println("*********************User NOT FOUND");
             user = new User();
             user.setUsername(userEmail.split("@")[0]);
             user.setFirstName(name[0]);
-            user.setLastName(name[1]);
+            user.setLastName(name.length > 1 ? name[1] : "");
             user.setEmail(userEmail);
             user.setBbdBucks(0);
             user.setActive(true);
             user.setRole(roleRepository.findByRole("ROLE_USER").get());
-            
             userRepository.save(user);
             // System.out.println("*********************User Created!!");
         }
-        else{
-            // System.out.println("*********************User FOUND");
-        }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) auth.getAuthorities();
+        authorities.addAll(user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(
+            new UsernamePasswordAuthenticationToken(
+                auth.getName(),
+                auth.getCredentials(),
+                authorities
+            )
+        );
 
+        System.out.println(user.getRole().getRole());
     }
 }
