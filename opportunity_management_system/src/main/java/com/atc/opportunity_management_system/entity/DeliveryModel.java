@@ -14,7 +14,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity

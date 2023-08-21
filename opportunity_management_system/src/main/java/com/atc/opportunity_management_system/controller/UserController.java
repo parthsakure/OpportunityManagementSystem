@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.atc.opportunity_management_system.entity.Industry;
 import com.atc.opportunity_management_system.entity.User;
 import com.atc.opportunity_management_system.service.UserService;
 

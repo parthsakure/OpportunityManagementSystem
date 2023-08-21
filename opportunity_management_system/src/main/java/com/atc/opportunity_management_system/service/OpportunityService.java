@@ -1,9 +1,7 @@
 package com.atc.opportunity_management_system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.atc.opportunity_management_system.entity.DealStage;
 import com.atc.opportunity_management_system.entity.Opportunity;
