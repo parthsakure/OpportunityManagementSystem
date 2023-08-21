@@ -7,5 +7,7 @@ import com.atc.opportunity_management_system.entity.DealStage;
 
 @RepositoryRestResource(path="dealstages")
 public interface DealStageRepository extends JpaRepository<DealStage,Integer> {
+
+    DealStage findByDealStage(String dealStage);
     
 }
