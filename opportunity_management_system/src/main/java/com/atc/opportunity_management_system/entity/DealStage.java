@@ -22,7 +22,7 @@ import lombok.Data;
 public class DealStage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer dealStageId;
+    private Long dealStageId;
 
     @Column(name = "dealStageName", nullable = false)
     @NotEmpty

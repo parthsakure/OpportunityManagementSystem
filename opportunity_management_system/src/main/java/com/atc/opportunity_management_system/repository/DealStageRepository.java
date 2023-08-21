@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.atc.opportunity_management_system.entity.DealStage;
 
 @RepositoryRestResource(path="dealstages")
-public interface DealStageRepository extends JpaRepository<DealStage,Integer> {
+public interface DealStageRepository extends JpaRepository<DealStage,Long> {
 
     DealStage findByDealStage(String dealStage);
     
