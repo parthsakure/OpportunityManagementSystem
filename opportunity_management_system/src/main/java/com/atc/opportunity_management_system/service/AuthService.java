@@ -1,5 +1,6 @@
 package com.atc.opportunity_management_system.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +41,8 @@ public class AuthService {
             // System.out.println("*********************User Created!!");
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        List<GrantedAuthority> authorities = (List<GrantedAuthority>) auth.getAuthorities();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.addAll(auth.getAuthorities());
         authorities.addAll(user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(
             new UsernamePasswordAuthenticationToken(
