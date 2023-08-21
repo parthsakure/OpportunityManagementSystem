@@ -85,13 +85,12 @@ public class OpportunityService {
 
 
     //method to add a new opportunity
-    public Object addOpportunity(Opportunity opportunity)
+    public Opportunity addOpportunity(Opportunity opportunity)
     {
       //set the deal stage to prospect by deafult
       opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect"));
 
       //save opportunity
-      //opportunity.setOpportunityId(0);
       opportunityRepository.save(opportunity);
       
       //get user who submitted opportunity
@@ -103,6 +102,18 @@ public class OpportunityService {
       //addbbdbucks to the user
       opportunity.setDealOwner(addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").getRewardPrice()));
       
+      return opportunity;
+    }
+
+
+    //method to get a opportunity by id
+    public Opportunity getOpportunityById(int id)
+    {
+      //find the opportunity
+      Opportunity opportunity = opportunityRepository.findById(id)
+      .orElseThrow(() -> new OpportunityNotFoundException(id));
+
+      //return
       return opportunity;
     }
 

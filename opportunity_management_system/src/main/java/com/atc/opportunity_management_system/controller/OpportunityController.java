@@ -1,6 +1,7 @@
 package com.atc.opportunity_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,9 +26,15 @@ public class OpportunityController {
     }
 
     @PostMapping("/api/opportunities")
-    private Object addOpportunity(@RequestBody @Valid Opportunity opportunity){
+    private Opportunity addOpportunity(@RequestBody @Valid Opportunity opportunity){
 
         return opportunityService.addOpportunity(opportunity);
+    }
+
+    @GetMapping("/api/opportunities/{id}")
+    private Opportunity getOpportunityById(@PathVariable int id)
+    {
+        return opportunityService.getOpportunityById(id);
     }
     
 }
