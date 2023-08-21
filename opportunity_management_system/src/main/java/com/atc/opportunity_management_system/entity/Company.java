@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,18 +23,19 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
+
 // import jakarta.validation.constraints.PositiveOrZero;
 @Entity
-@Table(name="company")
+@Table(name = "company")
 @Data
-public class Company{
-  
+public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="companyId",unique = true)
+    @Column(name = "companyId", unique = true)
     private Long companyId;
 
-    @Column(name="companyName")
+    @Column(name = "companyName")
     @NotEmpty(message = "CompanyName cannot be empty")
     private String companyName;
 
@@ -44,20 +47,19 @@ public class Company{
     // @NotEmpty
     // private int locationId;
 
-    @Column(name="websiteUrl")
+    @Column(name = "websiteUrl")
     @NotEmpty
     @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
     private String websiteUrl;
 
-    
-    @Column(name="years")
+    @Column(name = "years")
     @NotEmpty
     @Positive(message = "the company needs to be atleast a year old")
-    @Digits(fraction = 0, integer = 3, message ="years can't be in fraction")
+    @Digits(fraction = 0, integer = 3, message = "years can't be in fraction")
     @NotEmpty(message = "Years cannot be empty")
     private int years;
-    
-    @Column(name="active")
+
+    @Column(name = "active")
     @NotEmpty
     @Value("true")
     @NotEmpty(message = "Active cannot be empty")
@@ -65,17 +67,17 @@ public class Company{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     @NotEmpty(message = "User cannot be empty")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     @ManyToOne
     @NotEmpty(message = "industry cannot be empty")
-    @JoinColumn(name="industry")
+    @JoinColumn(name = "industry")
     private Industry industry;
 
     @ManyToOne
     @NotEmpty(message = "Location cannot be empty")
-    @JoinColumn(name="location")
+    @JoinColumn(name = "location")
     private Location location;
-
 
 }

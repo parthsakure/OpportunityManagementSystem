@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.micrometer.common.lang.Nullable;
 import lombok.Data;
 import jakarta.persistence.CascadeType;
@@ -22,59 +25,54 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.PositiveOrZero;
 
-
 @Entity
 @Data
-@Table(name="opportunity")
+@Table(name = "opportunity")
 public class Opportunity {
 
-    @Id 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="opportunityId")
+    @Column(name = "opportunityId")
     private int opportunityId;
 
-    @Column(name="title", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="description", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name="primaryNeed", nullable = false)
+    @Column(name = "primaryNeed", nullable = false)
     private String primaryNeed;
 
-    @Column(name="expectedMonthlyRevenue", nullable = false)
+    @Column(name = "expectedMonthlyRevenue", nullable = false)
     @PositiveOrZero(message = "The ExpectedMonthly revenue cannot be negative")
     private BigDecimal expectedMonthlyRevenue;
 
-    @Column(name="expectedLaunchDate", nullable = false)
+    @Column(name = "expectedLaunchDate", nullable = false)
     @Future(message = "Expected launch date must be in the future")
     private Date expectedLaunchDate;
 
-    @Column(name="closedLostReason") 
+    @Column(name = "closedLostReason")
     @Nullable
-    private String  closedLostReason;
-    
+    private String closedLostReason;
 
-    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable(
-        name="opportunity_usecase",
-        joinColumns=@JoinColumn(name="opportunity"),
-        inverseJoinColumns=@JoinColumn(name="useCase")
-    )
+    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+    @JoinTable(name = "opportunity_usecase", joinColumns = @JoinColumn(name = "opportunity"), inverseJoinColumns = @JoinColumn(name = "useCase"))
     private List<UseCase> usecases = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name="deliveryModel")
+    @JoinColumn(name = "deliveryModel")
     private DeliveryModel deliveryModel;
 
     @ManyToOne
-    @JoinColumn(name="dealStage")
+    @JoinColumn(name = "dealStage")
     private DealStage dealStage;
 
     @ManyToOne
-    @JoinColumn(name="user")
+    @JoinColumn(name = "user")
     private User dealOwner;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "opportunity")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
     private List<Transaction> transactions;
 }

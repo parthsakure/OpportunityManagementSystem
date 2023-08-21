@@ -19,14 +19,14 @@ public class OpportunityController {
     @Autowired
     private OpportunityService opportunityService;
 
-    @PutMapping("/opportunity/updateopportunity/{id}")
+    @PutMapping("/api/opportunities/{id}")
     private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity){
 
         return opportunityService.updateOpportunity(id, newOpportunity);
     }
 
-    @PostMapping("/opportunity/addopportunity")
-    private String addOpportunity(@RequestBody @Valid Opportunity opportunity){
+    @PostMapping("/api/opportunities")
+    private Object addOpportunity(@RequestBody @Valid Opportunity opportunity){
 
         return opportunityService.addOpportunity(opportunity);
     }

@@ -1,6 +1,7 @@
 package com.atc.opportunity_management_system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -31,7 +32,7 @@ public class OpportunityService {
 
 
     //method to create a transaction record
-    private void addTransactions(DealStage dealstage, Opportunity opportunity, User user)
+    private Transaction addTransactions(DealStage dealstage, Opportunity opportunity, User user)
     {
       Transaction transaction = new Transaction();
 
@@ -40,14 +41,14 @@ public class OpportunityService {
       transaction.setOpportunity(opportunity);
       transaction.setUser(user);
 
-      transactionRepository.save(transaction);
+      return transactionRepository.save(transaction);
     }
 
     //method to reward bbdbucks to user
-    private void addBbdBucks(User user, int rewardPrice)
+    private User addBbdBucks(User user, int rewardPrice)
     {
       user.setBbdBucks(user.getBbdBucks() + rewardPrice);
-      userrepository.save(user);
+      return userrepository.save(user);
     }
 
 
@@ -59,68 +60,52 @@ public class OpportunityService {
         Opportunity opportunitytoupdate = opportunityRepository.findById(opportunityid)
             .orElseThrow(() -> new OpportunityNotFoundException(opportunityid));
         
-
-        //updating the opportunity
-        if(opportunitytoupdate!= newOpportunity)
-        {
-          opportunitytoupdate.setTitle(newOpportunity.getTitle());
-          opportunitytoupdate.setDescription(newOpportunity.getDescription());
-          opportunitytoupdate.setPrimaryNeed(newOpportunity.getPrimaryNeed());
-          opportunitytoupdate.setExpectedMonthlyRevenue(newOpportunity.getExpectedMonthlyRevenue());
-          opportunitytoupdate.setExpectedLaunchDate(newOpportunity.getExpectedLaunchDate());
-          opportunitytoupdate.setClosedLostReason(newOpportunity.getClosedLostReason());
-          opportunitytoupdate.setDeliveryModel(newOpportunity.getDeliveryModel());
-          opportunitytoupdate.setDealStage(newOpportunity.getDealStage());
-          opportunitytoupdate.setDealOwner(newOpportunity.getDealOwner());
-
-          opportunityRepository.save(opportunitytoupdate);
-        }
-
-        else{
-          return opportunitytoupdate;
-        }
-
-
         // if deal stage is changed
-        if(opportunitytoupdate.getDealStage() != newOpportunity.getDealStage())
+        if(opportunitytoupdate.getDealStage().getDealStageId() < newOpportunity.getDealStage().getDealStageId())
         {
 
           //identifying which user to give bbd bucks to
-          User usertogetbbdbucks = opportunitytoupdate.getDealOwner();
+          User usertogetbbdbucks = userrepository.findById(newOpportunity.getDealOwner().getUserId()).get();
 
           //add to transactions table
-          addTransactions(newOpportunity.getDealStage(), opportunitytoupdate, usertogetbbdbucks);
+          addTransactions(newOpportunity.getDealStage(), newOpportunity, usertogetbbdbucks);
           
           //adding the bucks according to deal stage
-          addBbdBucks(usertogetbbdbucks, newOpportunity.getDealStage().getRewardPrice());
+          addBbdBucks(usertogetbbdbucks, dealStageRepository.findById(newOpportunity.getDealStage().getDealStageId()).get().getRewardPrice());
 
         }
 
-        //return
-        return opportunitytoupdate;
+        else
+        {
+          return opportunitytoupdate;
+        }
+
+        //updating the opportunity
+        return opportunityRepository.save(newOpportunity);
+
     }
 
 
     //method to add a new opportunity
-    public String addOpportunity(Opportunity opportunity)
+    public Object addOpportunity(Opportunity opportunity)
     {
-      // //set the deal stage to prospect by deafult
+      //set the deal stage to prospect by deafult
       opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect"));
 
       //save opportunity
-      opportunity.setOpportunityId(0);
+      //opportunity.setOpportunityId(0);
       opportunityRepository.save(opportunity);
-
-      // //get user who submitted opportunity
-      User usertogetbbdbucks = opportunity.getDealOwner();
-
-      // //add to transactions table
+      
+      //get user who submitted opportunity
+      User usertogetbbdbucks = userrepository.findById(opportunity.getDealOwner().getUserId()).get();
+      
+      //add to transactions table
       addTransactions(dealStageRepository.findByDealStage("Prospect"), opportunity, usertogetbbdbucks);
-
-      // //addbbdbucks to the user
-      addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").getRewardPrice());
-
-      return "ok";
+      
+      //addbbdbucks to the user
+      opportunity.setDealOwner(addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").getRewardPrice()));
+      
+      return opportunity;
     }
 
 }

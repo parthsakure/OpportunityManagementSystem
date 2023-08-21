@@ -1,6 +1,10 @@
 package com.atc.opportunity_management_system.entity;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,20 +16,19 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="industry")
+@Table(name = "industry")
 @Data
 public class Industry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="industryId")
+    @Column(name = "industryId")
     private int industryId;
 
-    @Column(name="industryName",unique=true,nullable = false)
+    @Column(name = "industryName", unique = true, nullable = false)
     private String industry;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "industry")
-    private List<Company> companies =  new ArrayList<>();
-
-
+    private List<Company> companies = new ArrayList<>();
 
 }

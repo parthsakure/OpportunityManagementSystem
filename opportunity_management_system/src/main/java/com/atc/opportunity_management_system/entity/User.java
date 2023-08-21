@@ -9,6 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Column;
@@ -26,55 +28,57 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @Data
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    
-    @Column(name="username", nullable = false, unique = true,length = 30)
-    //@NotBlank(message = "username is mandatory")
+
+    @Column(name = "username", nullable = false, unique = true, length = 30)
+    // @NotBlank(message = "username is mandatory")
     private String username;
 
-    @Column(name="firstName", nullable = false,length=20)
+    @Column(name = "firstName", nullable = false, length = 20)
     private String firstName;
-    
-    @Column(name="lastName", nullable = false, length =30)
+
+    @Column(name = "lastName", nullable = false, length = 30)
     private String lastName;
 
     @Email(message = "email is mandatory")
-    @Column(name="email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name="contactNo", nullable = true ,length = 15)
-    @Pattern(regexp="^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$")
+    @Column(name = "contactNo", nullable = true, length = 15)
+    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$")
     private String contactNo;
 
-    @Column(name="bbdBucks", nullable = false, length = 7)
-    private int bbdBucks=0;
-    
-    @Column(name="active")
+    @Column(name = "bbdBucks", nullable = false, length = 7)
+    private int bbdBucks = 0;
+
+    @Column(name = "active")
     @Value("true")
     private boolean active;
 
     @ManyToOne
-    @JoinColumn(name="roleId")
+    @JoinColumn(name = "roleId")
     private Role role;
-    
+
     @ManyToOne
-    @JoinColumn(name="company")
+    @JoinColumn(name = "company")
     private Company company;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealOwner")
     private List<Opportunity> opportunities;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Transaction> transactions;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority>authorities = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority(this.role.getRole()));
         return authorities;
     }
@@ -89,6 +93,7 @@ public class User implements UserDetails {
         return true;
 
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;

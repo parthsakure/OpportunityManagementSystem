@@ -3,6 +3,8 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,18 +16,18 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name="country")
+@Table(name = "country")
 @Data
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer countryId;
-    
-    @Column(name="countryName", nullable = false)
+
+    @Column(name = "countryName", nullable = false)
     private String country;
 
-    
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country")
+    @JsonIgnore
     private List<Location> locations = new ArrayList<>();
 
 }

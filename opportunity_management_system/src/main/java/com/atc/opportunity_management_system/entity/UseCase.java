@@ -3,6 +3,8 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +29,7 @@ public class UseCase {
     private String useCase;
 
     @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
     @JoinTable(
         name="opportunity_usecase",
         joinColumns=@JoinColumn(name="useCase"),
