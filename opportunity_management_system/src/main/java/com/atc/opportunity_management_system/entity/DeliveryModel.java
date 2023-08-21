@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity
@@ -22,9 +23,10 @@ public class DeliveryModel {
     private Long deliveryModelId;
 
     @Column(name="deliveryModelName", nullable = false)
+    //@NotEmpty
     private String deliveryModel;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "deliveryModel")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliveryModel")
     private List<Opportunity> opportunities = new ArrayList<>();
 
 

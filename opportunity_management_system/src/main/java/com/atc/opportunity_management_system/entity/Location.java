@@ -25,10 +25,10 @@ public class Location {
     @Column(name="postalCode", nullable = false,length = 10)
 	private int postalCode;
 	
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="country")
 	private Country country;
 
-	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "location")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
     private List<Company> companies = new ArrayList<>();
 }
