@@ -26,15 +26,15 @@ public class Transaction{
     @CreationTimestamp
     private Timestamp transactionTime;
     
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@ManyToOne
     @JoinColumn(name="user", nullable = false)
 	private User user;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="opportunity", nullable = false)
 	private Opportunity opportunity;
  
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="dealStage", nullable = false)
 	private DealStage dealStage;
 }

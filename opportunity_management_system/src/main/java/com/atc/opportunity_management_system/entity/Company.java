@@ -63,16 +63,16 @@ public class Company{
     @NotEmpty(message = "Active cannot be empty")
     private boolean active;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "company")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     @NotEmpty(message = "User cannot be empty")
     private List<User> users = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @NotEmpty(message = "industry cannot be empty")
     @JoinColumn(name="industry")
     private Industry industry;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @NotEmpty(message = "Location cannot be empty")
     @JoinColumn(name="location")
     private Location location;

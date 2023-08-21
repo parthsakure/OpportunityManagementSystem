@@ -23,7 +23,7 @@ public class Industry {
     @Column(name="industryName",unique=true,nullable = false)
     private String industry;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "industry")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "industry")
     private List<Company> companies =  new ArrayList<>();
 
 

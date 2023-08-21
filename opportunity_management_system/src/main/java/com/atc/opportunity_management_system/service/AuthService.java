@@ -26,7 +26,7 @@ public class AuthService {
             user = new User();
             user.setUsername(userEmail.split("@")[0]);
             user.setFirstName(name[0]);
-            user.setLastName(name[1]);
+            user.setLastName(name[0]);
             user.setEmail(userEmail);
             user.setBbdBucks(0);
             user.setActive(true);

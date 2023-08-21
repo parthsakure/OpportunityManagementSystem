@@ -33,7 +33,7 @@ public class User implements UserDetails {
     private Long userId;
     
     @Column(name="username", nullable = false, unique = true,length = 30)
-    @NotBlank(message = "username is mandatory")
+    //@NotBlank(message = "username is mandatory")
     private String username;
 
     @Column(name="firstName", nullable = false,length=20)
@@ -57,18 +57,18 @@ public class User implements UserDetails {
     @Value("true")
     private boolean active;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="roleId")
     private Role role;
     
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="company")
     private Company company;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealOwner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealOwner")
     private List<Opportunity> opportunities;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Transaction> transactions;
 
     @Override

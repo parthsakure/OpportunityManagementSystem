@@ -21,6 +21,7 @@ public class SecurityConfig{
             .defaultSuccessUrl("/authorize",true);
         })
         // .formLogin(Customizer.withDefaults())
+        .csrf(customizer -> customizer.disable())
         .build();
     }
 

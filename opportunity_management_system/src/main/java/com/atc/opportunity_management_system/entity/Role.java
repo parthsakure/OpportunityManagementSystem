@@ -25,7 +25,7 @@ public class Role {
     @Column(name="roleName", nullable = false)
     private String role;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "role")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private List<User> users =new ArrayList<>();
 
 

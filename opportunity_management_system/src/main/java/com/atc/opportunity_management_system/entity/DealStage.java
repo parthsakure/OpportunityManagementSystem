@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 @Entity
@@ -22,15 +23,17 @@ public class DealStage {
     private Long dealStageId;
 
     @Column(name="dealStageName", nullable = false)
+    @NotEmpty
     private String dealStage;
 
     @Column(name="rewardPrice", nullable = false)
+    @NotEmpty
     private int rewardPrice;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealStage")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealStage")
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, mappedBy = "dealStage")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealStage")
     private List<Transaction> transactions = new ArrayList<>();
 
 }

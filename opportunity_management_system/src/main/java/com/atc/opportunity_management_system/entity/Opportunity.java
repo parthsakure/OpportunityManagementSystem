@@ -33,25 +33,20 @@ public class Opportunity {
     @Column(name="opportunityId")
     private int opportunityId;
 
-    @Column(name="title")
-    @NotEmpty(message = "Title cannot be empty")
+    @Column(name="title", nullable = false)
     private String title;
 
-    @Column(name="description")
-    @NotEmpty(message = "Description cannot be empty")
+    @Column(name="description", nullable = false)
     private String description;
 
-    @Column(name="primaryNeed")
-    @NotEmpty(message = "PrimaryNeed cannot be empty")
+    @Column(name="primaryNeed", nullable = false)
     private String primaryNeed;
 
-    @Column(name="expectedMonthlyRevenue")
-    @NotEmpty(message = "ExpectedMonthlyRevenue cannot be empty")
+    @Column(name="expectedMonthlyRevenue", nullable = false)
     @PositiveOrZero(message = "The ExpectedMonthly revenue cannot be negative")
     private BigDecimal expectedMonthlyRevenue;
 
-    @Column(name="expectedLaunchDate")
-    @NotEmpty(message = "ExpectedLaunchDate cannot be empty")
+    @Column(name="expectedLaunchDate", nullable = false)
     @Future(message = "Expected launch date must be in the future")
     private Date expectedLaunchDate;
 
@@ -66,25 +61,20 @@ public class Opportunity {
         joinColumns=@JoinColumn(name="opportunity"),
         inverseJoinColumns=@JoinColumn(name="useCase")
     )
-    @NotEmpty(message = "UseCases cannot be empty")
     private List<UseCase> usecases = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="deliveryModel")
-    @NotEmpty(message = "DeliveryModel cannot be empty")
     private DeliveryModel deliveryModel;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="dealStage")
-    @NotEmpty(message = "DealStage cannot be empty")
     private DealStage dealStage;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name="user")
-    @NotEmpty(message = "DealOwner cannot be empty")
     private User dealOwner;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},mappedBy = "opportunity")
-    @NotEmpty(message = "Transactions cannot be empty")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "opportunity")
     private List<Transaction> transactions;
 }
