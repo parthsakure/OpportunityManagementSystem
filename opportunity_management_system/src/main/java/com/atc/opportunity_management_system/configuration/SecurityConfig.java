@@ -32,19 +32,19 @@ public class SecurityConfig {
         return http
         .authorizeHttpRequests(customizer->{
             customizer
+            // .anyRequest().permitAll()
             .requestMatchers("/authorize/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
 
-            .requestMatchers(HttpMethod.POST, "/opportunities/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/locations/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/companies/**").hasAnyRole("ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/countries/**").hasAnyRole("ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/users/**").hasAnyRole("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/opportunity/**","/location/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
+            .requestMatchers(HttpMethod.POST, "/company/**", "/country/**").hasAnyRole("ADMIN", "EMPLOYEE")
+            .requestMatchers(HttpMethod.POST, "/user/**").hasAnyRole("ADMIN")
+
+            .requestMatchers(HttpMethod.PUT, "/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
 
             .requestMatchers(HttpMethod.DELETE, "/opportunities/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
             ;
 
         })

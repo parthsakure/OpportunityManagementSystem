@@ -24,7 +24,7 @@ import com.atc.opportunity_management_system.service.OpportunityService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/opportunities")
+@RequestMapping("opportunity")
 public class OpportunityController {
 
 
@@ -55,11 +55,4 @@ public class OpportunityController {
         opportunityService.deleteOppotunity(id, delOpportunity);
     }
 
-    @ExceptionHandler
-    public ResponseEntity<ErrorMessage> handleException(Exception e){
-        ErrorMessage error = new ErrorMessage(e.getMessage(), System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value());
-        System.out.println("**********************************************");
-        return new ResponseEntity<ErrorMessage>(error, HttpStatus.BAD_REQUEST);
-
-    }
 }

@@ -37,8 +37,4 @@ public class UseCase {
     )
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    public UseCase(String useCase) {
-        this.useCase = useCase;
-    }
-
 }
