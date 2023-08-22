@@ -24,7 +24,7 @@ public class AuthController {
         Map<String,Object>userData = user.getAttributes();
         authService.authoriseUser(userData);
         // return userData;
-        return new RedirectView("/api");
+        return new RedirectView("/");
     }
 
 }

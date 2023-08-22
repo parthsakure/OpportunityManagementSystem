@@ -14,13 +14,13 @@ import com.atc.opportunity_management_system.entity.Company;
 import com.atc.opportunity_management_system.service.CompanyService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/companies")
 public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
 
-    @GetMapping("/companies/{companyId}")
+    @GetMapping("/{companyId}")
     public ResponseEntity<Company> getCompanybyId(@PathVariable Long companyId) {
         Company company = companyService.getCompanyById(companyId);
         if (company != null) {
@@ -29,7 +29,7 @@ public class CompanyController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("companies/{companyId}")
+    @PutMapping("/{companyId}")
     public ResponseEntity<Company> updateCompany(@PathVariable Long companyId, @RequestBody Company updateCompany) {
         Company company = companyService.updateCompany(companyId, updateCompany);
         if (company != null) {
@@ -38,7 +38,7 @@ public class CompanyController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("companies/{companyId}")
+    @DeleteMapping("/{companyId}")
     public ResponseEntity<Company> deleteCompany(@PathVariable Long companyId) {
         Company company = companyService.deleteCompany(companyId);
         if (company != null) {

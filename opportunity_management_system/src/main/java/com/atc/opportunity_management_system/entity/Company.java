@@ -32,20 +32,20 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long companyId;
 
     // private int industryId;
 
     // @Column(name="locationId")
-    // @NotEmpty
+    // //@NotEmpty
     // private int locationId;
 
     @Column(name = "companyName")
-    @NotEmpty(message = "CompanyName cannot be empty")
+    //@NotEmpty(message = "CompanyName cannot be empty")
     private String companyName;
 
     @Column(name = "websiteUrl")
-    @NotEmpty(message = "Website URL cannot be empty")
+    //@NotEmpty(message = "Website URL cannot be empty")
     @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$", message = "Invalid URL format")
     private String websiteUrl;
 
@@ -60,18 +60,18 @@ public class Company {
     private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    @NotEmpty(message = "Users list cannot be empty")
+    //@NotEmpty(message = "Users list cannot be empty")
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     @ManyToOne
     @NotNull(message = "Industry cannot be null")
-    @JoinColumn(name = "industry_id")
+    @JoinColumn(name = "industry")
     private Industry industry;
 
     @ManyToOne
     @NotNull(message = "Location cannot be null")
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location")
     private Location location;
 
 }
