@@ -92,6 +92,7 @@ public class OpportunityService {
     {
       //set the deal stage to prospect by deafult
       opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect").get());
+      opportunity.setActive(true);
 
       //save opportunity
       opportunityRepository.save(opportunity);

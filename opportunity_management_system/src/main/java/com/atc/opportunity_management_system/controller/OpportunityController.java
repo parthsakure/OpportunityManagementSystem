@@ -1,7 +1,6 @@
 package com.atc.opportunity_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +17,7 @@ import com.atc.opportunity_management_system.service.OpportunityService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/opportunities")
+@RequestMapping("/opportunities")
 public class OpportunityController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class OpportunityController {
     }
 
     @PostMapping("/")
-    private Opportunity addOpportunity(@RequestBody @Valid Opportunity opportunity){
+    private Opportunity addOpportunity(@Valid @RequestBody Opportunity opportunity){
 
         return opportunityService.addOpportunity(opportunity);
     }

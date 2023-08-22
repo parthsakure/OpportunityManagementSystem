@@ -45,7 +45,7 @@ public class SecurityConfig {
 
             .requestMatchers(HttpMethod.PUT, "/api/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-            ;
+            .anyRequest().authenticated();
         })
         .oauth2Login(cust->{
             cust

@@ -21,7 +21,7 @@ public class CompanyService {
     public Company updateCompany(Long companyId, Company updateCompany){
         Company company = companyRepository.findById(companyId).get();
         if(company!=null){
-            if(company.isActive()){
+            if(company.getActive()){
                 updateCompany.setCompanyId(companyId);
                 return companyRepository.save(updateCompany);
 
@@ -34,7 +34,7 @@ public class CompanyService {
     public Company deleteCompany(Long companyId){
         Company company = companyRepository.findById(companyId).get();
         if(company!=null){
-            if(company.isActive()){
+            if(company.getActive()){
                 company.setActive(false);
                 return companyRepository.save(company);
             }
