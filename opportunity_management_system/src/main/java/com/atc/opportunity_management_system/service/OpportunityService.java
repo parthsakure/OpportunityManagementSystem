@@ -88,7 +88,7 @@ public class OpportunityService {
     public Opportunity addOpportunity(Opportunity opportunity)
     {
       //set the deal stage to prospect by deafult
-      opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect"));
+      opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect").get());
 
       //save opportunity
       opportunityRepository.save(opportunity);
@@ -97,10 +97,10 @@ public class OpportunityService {
       User usertogetbbdbucks = userrepository.findById(opportunity.getDealOwner().getUserId()).get();
       
       //add to transactions table
-      addTransactions(dealStageRepository.findByDealStage("Prospect"), opportunity, usertogetbbdbucks);
+      addTransactions(dealStageRepository.findByDealStage("Prospect").get(), opportunity, usertogetbbdbucks);
       
       //addbbdbucks to the user
-      opportunity.setDealOwner(addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").getRewardPrice()));
+      opportunity.setDealOwner(addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").get().getRewardPrice()));
       
       return opportunity;
     }
