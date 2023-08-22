@@ -39,7 +39,6 @@ public class OpportunityController {
 
     @PostMapping("/")
     private Opportunity addOpportunity(@Valid @RequestBody Opportunity opportunity){
-    private Opportunity addOpportunity(@RequestBody Opportunity opportunity){
 
         return opportunityService.addOpportunity(opportunity);
     }
