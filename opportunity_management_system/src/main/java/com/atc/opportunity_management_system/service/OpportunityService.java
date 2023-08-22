@@ -124,7 +124,7 @@ public class OpportunityService {
 
     //in progress
     @Transactional
-    public Opportunity deleteOppotunity(int Id , Opportunity closedReason)
+    public void deleteOppotunity(int Id , Opportunity closedReason)
     { 
         
         //get opportunity to delete
@@ -138,9 +138,7 @@ public class OpportunityService {
             opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost").get());  
             opportunity.setClosedLostReason(closedReason.getClosedLostReason());
             opportunityRepository.save(opportunity);
-            return opportunity;
-          }
-          return opportunity;
+        }
     }
 
 }

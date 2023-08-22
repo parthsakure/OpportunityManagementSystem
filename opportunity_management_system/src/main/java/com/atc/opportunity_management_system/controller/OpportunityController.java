@@ -43,12 +43,9 @@ public class OpportunityController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Opportunity> deleteOppotunity(@PathVariable int id,@RequestBody Opportunity delOpportunity)
+    private void deleteOppotunity(@PathVariable int id,@RequestBody Opportunity delOpportunity)
     {
-        Opportunity clOpportunity = opportunityService.deleteOppotunity(id, delOpportunity);
-        if (clOpportunity != null) {
-            return ResponseEntity.ok(clOpportunity);
-        }
-        return ResponseEntity.notFound().build();
+         opportunityService.deleteOppotunity(id, delOpportunity);
+
     }
 }
