@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.atc.opportunity_management_system.entity.Company;
 import com.atc.opportunity_management_system.service.CompanyService;
 
-
 @RestController
 @RequestMapping("/api")
 public class CompanyController {
@@ -22,26 +21,28 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping("/companies/{companyId}")
-    public ResponseEntity<Company> getCompanybyId(@PathVariable Long companyId){
+    public ResponseEntity<Company> getCompanybyId(@PathVariable Long companyId) {
         Company company = companyService.getCompanyById(companyId);
-        if(company!=null){
+        if (company != null) {
             return ResponseEntity.ok(company);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("companies/{companyId}")
-    public ResponseEntity<String> updateCompany(@PathVariable Long companyId, @RequestBody Company updateCompany){
-        if(companyService.updateCompany(companyId, updateCompany)){
-            return ResponseEntity.ok("company updated successfully");
+    public ResponseEntity<Company> updateCompany(@PathVariable Long companyId, @RequestBody Company updateCompany) {
+        Company company = companyService.updateCompany(companyId, updateCompany);
+        if (company != null) {
+            return ResponseEntity.ok(company);
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("companies/{companyId}")
-    public ResponseEntity<String> deleteCompany(@PathVariable Long companyId){
-        if(companyService.deleteCompany(companyId)){
-            return ResponseEntity.ok("company deleted successfully");
+    public ResponseEntity<Company> deleteCompany(@PathVariable Long companyId) {
+        Company company = companyService.deleteCompany(companyId);
+        if (company != null) {
+            return ResponseEntity.ok(company);
         }
         return ResponseEntity.notFound().build();
     }

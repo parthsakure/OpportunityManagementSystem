@@ -18,29 +18,28 @@ public class CompanyService {
         return companyRepository.findById(companyId).orElse(null);
     }
 
-    public boolean updateCompany(Long companyId, Company updateCompany){
+    public Company updateCompany(Long companyId, Company updateCompany){
         Company company = companyRepository.findById(companyId).get();
         if(company!=null){
             if(company.isActive()){
                 updateCompany.setCompanyId(companyId);
-                companyRepository.save(updateCompany);
-                return true;
+                return companyRepository.save(updateCompany);
+
             }
         }
-        return false;
+        return null;
     }
 
     @Transactional
-    public boolean deleteCompany(Long companyId){
+    public Company deleteCompany(Long companyId){
         Company company = companyRepository.findById(companyId).get();
         if(company!=null){
             if(company.isActive()){
                 company.setActive(false);
-                companyRepository.save(company);
-                return true;
+                return companyRepository.save(company);
             }
         }
-        return false;
+        return null;
     }
 
 

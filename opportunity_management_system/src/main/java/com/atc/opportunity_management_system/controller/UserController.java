@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.atc.opportunity_management_system.entity.User;
 import com.atc.opportunity_management_system.service.UserService;
 
-
 @RestController
 @RequestMapping("api/users")
 public class UserController {
@@ -21,17 +20,19 @@ public class UserController {
     private UserService userService;
 
     @PutMapping("{userId}")
-    public ResponseEntity<String> updateUser(@PathVariable Long userId, @RequestBody User updateUser){
-        if(userService.updateUser(userId, updateUser)){
-            return ResponseEntity.ok("user updated successfully");
+    public ResponseEntity<User> updateUser(@PathVariable Long userId, @RequestBody User updateUser) {
+        User user = userService.updateUser(userId, updateUser);
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("{userId}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long userId){
-        if(userService.deleteUser(userId)){
-            return ResponseEntity.ok("user deleted successfully");
+    public ResponseEntity<User> deleteUser(@PathVariable Long userId) {
+        User user = userService.deleteUser(userId);
+        if (user != null) {
+            return ResponseEntity.ok(user);
         }
         return ResponseEntity.notFound().build();
     }
