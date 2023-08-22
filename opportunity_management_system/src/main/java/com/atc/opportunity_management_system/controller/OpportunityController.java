@@ -1,6 +1,8 @@
 package com.atc.opportunity_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atc.opportunity_management_system.entity.Opportunity;
+// import com.atc.opportunity_management_system.entity.User;
 import com.atc.opportunity_management_system.service.OpportunityService;
 
 import jakarta.validation.Valid;
@@ -38,5 +41,14 @@ public class OpportunityController {
     {
         return opportunityService.getOpportunityById(id);
     }
-    
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity<Opportunity> deleteOppotunity(@PathVariable int id,@RequestBody Opportunity delOpportunity)
+    {
+        Opportunity clOpportunity = opportunityService.deleteOppotunity(id, delOpportunity);
+        if (clOpportunity != null) {
+            return ResponseEntity.ok(clOpportunity);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
