@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.atc.opportunity_management_system.entity.Opportunity;
@@ -14,24 +15,25 @@ import com.atc.opportunity_management_system.service.OpportunityService;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping("/api/opportunities")
 public class OpportunityController {
 
     @Autowired
     private OpportunityService opportunityService;
 
-    @PutMapping("/api/opportunities/{id}")
+    @PutMapping("/{id}")
     private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity){
 
         return opportunityService.updateOpportunity(id, newOpportunity);
     }
 
-    @PostMapping("/api/opportunities")
+    @PostMapping("/")
     private Opportunity addOpportunity(@RequestBody @Valid Opportunity opportunity){
 
         return opportunityService.addOpportunity(opportunity);
     }
 
-    @GetMapping("/api/opportunities/{id}")
+    @GetMapping("/{id}")
     private Opportunity getOpportunityById(@PathVariable int id)
     {
         return opportunityService.getOpportunityById(id);
