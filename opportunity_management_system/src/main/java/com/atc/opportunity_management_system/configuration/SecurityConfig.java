@@ -32,20 +32,21 @@ public class SecurityConfig {
         return http
         .authorizeHttpRequests(customizer->{
             customizer
-            .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
+            .requestMatchers("/authorize/**").permitAll()
+            .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
 
-            .requestMatchers(HttpMethod.POST, "/api/opportunities/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/api/locations/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/api/companies/**").hasAnyRole("ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/api/countries/**").hasAnyRole("ADMIN", "EMPLOYEE")
-            .requestMatchers(HttpMethod.POST, "/api/users/**").hasAnyRole("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/opportunities/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
+            .requestMatchers(HttpMethod.POST, "/locations/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
+            .requestMatchers(HttpMethod.POST, "/companies/**").hasAnyRole("ADMIN", "EMPLOYEE")
+            .requestMatchers(HttpMethod.POST, "/countries/**").hasAnyRole("ADMIN", "EMPLOYEE")
+            .requestMatchers(HttpMethod.POST, "/users/**").hasAnyRole("ADMIN")
 
-            .requestMatchers(HttpMethod.DELETE, "/api/opportunities/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/opportunities/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
+            ;
 
-            .requestMatchers(HttpMethod.PUT, "/api/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-            .anyRequest().authenticated();
         })
         .oauth2Login(cust->{
             cust

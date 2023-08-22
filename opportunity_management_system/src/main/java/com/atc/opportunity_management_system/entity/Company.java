@@ -54,12 +54,12 @@ public class Company {
 
     @ManyToOne
     @NotNull(message = "Industry cannot be null")
-    @JoinColumn(name = "industry_id")
+    @JoinColumn(name = "industry")
     private Industry industry;
 
     @ManyToOne
     @NotNull(message = "Location cannot be null")
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location")
     private Location location;
 
 }

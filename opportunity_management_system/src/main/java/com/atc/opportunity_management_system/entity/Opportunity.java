@@ -40,6 +40,7 @@ public class Opportunity {
     private String title;
 
     @Column(name = "description", nullable = false)
+    
     private String description;
 
     @Column(name = "primaryNeed", nullable = false)
