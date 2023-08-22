@@ -124,18 +124,21 @@ public class OpportunityService {
 
     //in progress
     @Transactional
-    public Opportunity deleteOppotunity(int Id , String closedReason){
-        Opportunity opportunity = opportunityRepository.findById(Id).get();
-        if(opportunity!=null){
-            if(opportunity.isActive()){
-                opportunity.setActive(false);
-                opportunityRepository.save(opportunity);
-                opportunity.setClosedLostReason(closedReason);
-                opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost"));
-                return opportunity;
-            }
+    public void deleteOppotunity(int Id , String closedReason)
+    { 
+        
+        //get opportunity to delete
+        Opportunity opportunity = opportunityRepository.findById(Id)
+        .orElseThrow(() -> new OpportunityNotFoundException(Id));
+
+        //set as inactive if it is active
+        if(opportunity.isActive())
+        {
+            opportunity.setActive(false); 
+            opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost").get());  
+            opportunity.setClosedLostReason(closedReason);
+            opportunityRepository.save(opportunity);
         }
-        return opportunity;
     }
 
 }
