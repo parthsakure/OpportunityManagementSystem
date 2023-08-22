@@ -23,7 +23,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 @Entity
@@ -34,25 +36,28 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(name = "username", nullable = false, unique = true, length = 30)
-    // @NotBlank(message = "username is mandatory")
+    @Column(name = "username", nullable = false, unique = true, length = 30 )
+    @NotNull(message = "can't keep this field empty")
     private String username;
 
     @Column(name = "firstName", nullable = false, length = 20)
+    @NotNull(message = "can't keep this field empty")
     private String firstName;
 
     @Column(name = "lastName", nullable = false, length = 30)
+    @NotNull(message = "can't keep this field empty")
     private String lastName;
 
-    @Email(message = "email is mandatory")
+    @Email(message = "insert valid emailId")
     @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "contactNo", nullable = true, length = 15)
-    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$")
+    @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid contact number")
     private String contactNo;
 
     @Column(name = "bbdBucks", nullable = false, length = 7)
+    @PositiveOrZero(message = "BBD Bucks cant be negative")
     private int bbdBucks = 0;
 
     @Column(name = "active")
