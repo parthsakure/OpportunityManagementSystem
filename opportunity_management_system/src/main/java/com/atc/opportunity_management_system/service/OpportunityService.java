@@ -92,6 +92,7 @@ public class OpportunityService {
     {
       //set the deal stage to prospect by deafult
       opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect").get());
+      opportunity.setActive(true);
 
       //save opportunity
       opportunityRepository.save(opportunity);
@@ -124,7 +125,7 @@ public class OpportunityService {
 
     //in progress
     @Transactional
-    public void deleteOppotunity(int Id , Opportunity closedReason)
+    public void deleteOpportunity(int Id , Opportunity closedReason)
     { 
         
         //get opportunity to delete
