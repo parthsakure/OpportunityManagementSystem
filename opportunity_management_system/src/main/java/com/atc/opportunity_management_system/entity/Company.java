@@ -30,52 +30,46 @@ public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "companyId", unique = true)
-    private Long companyId;
+    private Long id;
 
-    @Column(name = "companyName")
-    // @NotEmpty(message = "CompanyName cannot be empty")
-    private String companyName;
-
-    // @Column(name="industryId")
-    // @NotEmpty
     // private int industryId;
 
     // @Column(name="locationId")
     // @NotEmpty
     // private int locationId;
 
+    @Column(name = "companyName")
+    @NotEmpty(message = "CompanyName cannot be empty")
+    private String companyName;
+
     @Column(name = "websiteUrl")
-    // @NotEmpty
-    @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
+    @NotEmpty(message = "Website URL cannot be empty")
+    @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$", message = "Invalid URL format")
     private String websiteUrl;
 
     @Column(name = "years")
-    // @NotEmpty
-    @Positive(message = "the company needs to be atleast a year old")
-    @Digits(fraction = 0, integer = 3, message = "years can't be in fraction")
-    // @NotEmpty(message = "Years cannot be empty")
-    private int years;
+    @Positive(message = "The company needs to be at least a year old")
+    @Digits(fraction = 0, integer = 3, message = "Years can't be in fraction")
+    @NotNull(message = "Years cannot be null")
+    private Integer years;
 
     @Column(name = "active")
-    // @NotEmpty
-    @Value("true")
-    // @NotEmpty(message = "Active cannot be empty")
-    private boolean active;
+    @NotNull(message = "Active cannot be null")
+    private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
-    // @NotEmpty(message = "User cannot be empty")
+    @NotEmpty(message = "Users list cannot be empty")
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     @ManyToOne
-    // @NotEmpty(message = "industry cannot be empty")
-    @JoinColumn(name = "industry")
+    @NotNull(message = "Industry cannot be null")
+    @JoinColumn(name = "industry_id")
     private Industry industry;
 
     @ManyToOne
-    // @NotEmpty(message = "Location cannot be empty")
-    @JoinColumn(name = "location")
+    @NotNull(message = "Location cannot be null")
+    @JoinColumn(name = "location_id")
     private Location location;
 
 }
