@@ -50,9 +50,9 @@ public class OpportunityController {
     }
 
     @DeleteMapping("/{id}")
-    private void deleteOppotunity(@PathVariable int id,@RequestBody Opportunity delOpportunity)
+    private void deleteOpportunity(@PathVariable int id,@RequestBody Opportunity delOpportunity)
     {
-        opportunityService.deleteOppotunity(id, delOpportunity);
+        opportunityService.deleteOpportunity(id, delOpportunity);
     }
 
     @ExceptionHandler

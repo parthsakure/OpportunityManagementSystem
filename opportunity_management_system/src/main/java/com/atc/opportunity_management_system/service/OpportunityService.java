@@ -125,7 +125,7 @@ public class OpportunityService {
 
     //in progress
     @Transactional
-    public void deleteOppotunity(int Id , Opportunity closedReason)
+    public void deleteOpportunity(int Id , Opportunity closedReason)
     { 
         
         //get opportunity to delete
