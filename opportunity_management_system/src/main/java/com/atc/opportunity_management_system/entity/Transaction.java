@@ -25,7 +25,7 @@ public class Transaction{
     private Timestamp transactionTime;
     
 	@ManyToOne
-    @JoinColumn(name="user", nullable = false)
+    @JoinColumn(name="userDetails", nullable = false)
 	private User user;
 
     @ManyToOne

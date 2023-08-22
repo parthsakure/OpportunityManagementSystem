@@ -1,6 +1,7 @@
 package com.atc.opportunity_management_system.entity;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class Opportunity {
 
     @Column(name = "expectedLaunchDate", nullable = false)
     @Future(message = "Expected launch date must be in the future")
-    private Date expectedLaunchDate;
+    private OffsetDateTime expectedLaunchDate;
 
     @Column(name = "closedLostReason")
     @Nullable
@@ -75,7 +76,7 @@ public class Opportunity {
     private DealStage dealStage;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "userDetails")
     private User dealOwner;
 
     @JsonIgnore

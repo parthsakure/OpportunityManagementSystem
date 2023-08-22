@@ -29,7 +29,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 @Entity
-@Table(name = "user")
+@Table(name = "userDetails")
 @Data
 public class User implements UserDetails {
     @Id
