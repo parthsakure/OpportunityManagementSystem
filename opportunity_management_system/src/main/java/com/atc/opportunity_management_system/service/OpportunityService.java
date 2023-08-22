@@ -3,6 +3,7 @@ package com.atc.opportunity_management_system.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+// import com.atc.opportunity_management_system.entity.Company;
 import com.atc.opportunity_management_system.entity.DealStage;
 import com.atc.opportunity_management_system.entity.Opportunity;
 import com.atc.opportunity_management_system.entity.Transaction;
@@ -12,6 +13,8 @@ import com.atc.opportunity_management_system.repository.DealStageRepository;
 import com.atc.opportunity_management_system.repository.OpportunityRepository;
 import com.atc.opportunity_management_system.repository.TransactionRepository;
 import com.atc.opportunity_management_system.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OpportunityService {
@@ -115,6 +118,24 @@ public class OpportunityService {
 
       //return
       return opportunity;
+    }
+
+
+
+    //in progress
+    @Transactional
+    public Opportunity deleteOppotunity(int Id , String closedReason){
+        Opportunity opportunity = opportunityRepository.findById(Id).get();
+        if(opportunity!=null){
+            if(opportunity.isActive()){
+                opportunity.setActive(false);
+                opportunityRepository.save(opportunity);
+                opportunity.setClosedLostReason(closedReason);
+                opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost"));
+                return opportunity;
+            }
+        }
+        return opportunity;
     }
 
 }
