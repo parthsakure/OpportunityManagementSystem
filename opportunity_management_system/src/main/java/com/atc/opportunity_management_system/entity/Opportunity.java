@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.micrometer.common.lang.Nullable;
@@ -54,6 +56,10 @@ public class Opportunity {
     @Column(name = "closedLostReason")
     @Nullable
     private String closedLostReason;
+
+    @Column(name = "active")
+    @Value("true")
+    private boolean active;
 
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
     @JoinTable(name = "opportunity_usecase", joinColumns = @JoinColumn(name = "opportunity"), inverseJoinColumns = @JoinColumn(name = "useCase"))

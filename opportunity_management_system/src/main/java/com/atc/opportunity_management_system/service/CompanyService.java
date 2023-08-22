@@ -14,6 +14,10 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    public Company getCompanyById (Long companyId){
+        return companyRepository.findById(companyId).orElse(null);
+    }
+
     public boolean updateCompany(Long companyId, Company updateCompany){
         Company company = companyRepository.findById(companyId).get();
         if(company!=null){
@@ -26,7 +30,7 @@ public class CompanyService {
         return false;
     }
 
-@Transactional
+    @Transactional
     public boolean deleteCompany(Long companyId){
         Company company = companyRepository.findById(companyId).get();
         if(company!=null){
@@ -38,5 +42,6 @@ public class CompanyService {
         }
         return false;
     }
+
 
 }
