@@ -32,7 +32,6 @@ public class SecurityConfig {
         return http
         .authorizeHttpRequests(customizer->{
             customizer
-            // .anyRequest().permitAll()
             .requestMatchers("/authorize/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
 
@@ -46,16 +45,18 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/opportunity/**").hasRole("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN")
             ;
-
         })
         .oauth2Login(cust->{
             cust
             .defaultSuccessUrl("/authorize",true);
         })
         .formLogin(Customizer.withDefaults())
-        .logout(cust->cust.logoutSuccessUrl("/logout"))
+        .logout(cust->cust
+            .clearAuthentication(true)
+            .logoutUrl("/logout")
+        )
         .csrf(cust->cust.disable())
-        .build();   
+        .build();
     }
 
 }

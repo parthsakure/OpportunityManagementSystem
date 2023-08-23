@@ -23,8 +23,12 @@ public class AuthController {
     public RedirectView authorize(@AuthenticationPrincipal OAuth2User user){
         Map<String,Object>userData = user.getAttributes();
         authService.authoriseUser(userData);
-        // return userData;
         return new RedirectView("/");
+    }
+
+    @GetMapping("profile")
+    public Object getAuthUser(){
+        return authService.getAuthUser();
     }
 
 }
