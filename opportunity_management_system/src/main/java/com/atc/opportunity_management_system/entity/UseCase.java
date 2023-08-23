@@ -28,8 +28,8 @@ public class UseCase {
     @Column(name="useCaseName", nullable = false)
     private String useCase;
 
-    @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
+    @ManyToMany( cascade = { CascadeType.MERGE})
+    // @JsonIgnore
     @JoinTable(
         name="opportunity_usecase",
         joinColumns=@JoinColumn(name="useCase"),
