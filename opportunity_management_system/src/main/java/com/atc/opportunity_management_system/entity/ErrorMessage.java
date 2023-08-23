@@ -10,15 +10,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class ErrorMessage {
-    private Object message;
+    private String message;
     private long time;
     private int status;
-    public ErrorMessage(Object message, int status) {
-        this.message = message;
-        this.status = status;
-        time = System.currentTimeMillis();
-    }
-
-    
 }

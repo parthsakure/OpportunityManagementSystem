@@ -50,10 +50,12 @@ public class User implements UserDetails {
 
     @Email(message = "insert valid emailId")
     @Column(name = "email", nullable = false)
+    @NotNull(message = "can't keep this field empty") 
     private String email;
 
     @Column(name = "contactNo", nullable = true, length = 15)
     @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid contact number")
+    @NotNull(message = "can't keep this field empty") 
     private String contactNo;
 
     @Column(name = "bbdBucks", nullable = false, length = 7)

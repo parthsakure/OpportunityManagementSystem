@@ -25,6 +25,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -35,16 +36,19 @@ public class Opportunity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "opportunityId")
+    @NotNull(message = "can't keep this field empty") 
     private int opportunityId;
 
     @Column(name = "title", nullable = false)
+    @NotNull(message = "can't keep this field empty") 
     private String title;
 
     @Column(name = "description", nullable = false)
-    
+    @NotNull(message = "can't keep this field empty")     
     private String description;
 
     @Column(name = "primaryNeed", nullable = false)
+    @NotNull(message = "can't keep this field empty") 
     private String primaryNeed;
 
     @Column(name = "expectedMonthlyRevenue", nullable = false)
