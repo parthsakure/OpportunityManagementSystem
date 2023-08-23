@@ -55,12 +55,12 @@ public class Company {
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     // //@NotNull(message = "Industry cannot be null")
     @JoinColumn(name = "industry")
     private Industry industry;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH,CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     // //@NotNull(message = "Location cannot be null")
     @JoinColumn(name = "location")
     private Location location;
