@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.atc.opportunity_management_system.entity.Company;
 import com.atc.opportunity_management_system.service.CompanyService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
@@ -30,7 +32,7 @@ public class CompanyController {
     }
 
     @PutMapping("/{companyId}")
-    public ResponseEntity<Company> updateCompany(@PathVariable Long companyId, @RequestBody Company updateCompany) {
+    public ResponseEntity<Company> updateCompany(@PathVariable Long companyId, @RequestBody @Valid Company updateCompany) {
         Company company = companyService.updateCompany(companyId, updateCompany);
         if (company != null) {
             return ResponseEntity.ok(company);
