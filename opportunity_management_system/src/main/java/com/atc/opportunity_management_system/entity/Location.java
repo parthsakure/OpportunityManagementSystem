@@ -15,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Entity
@@ -26,6 +28,8 @@ public class Location {
     private Long locationId;
 
     @Column(name = "postalCode", nullable = false, length = 10)
+    @NotNull(message = "can't keep this field empty")
+    @Positive 
     private int postalCode;
 
     @ManyToOne

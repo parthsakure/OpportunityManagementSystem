@@ -36,6 +36,7 @@ public class Company {
 
     @Column(name = "websiteUrl")
     @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$", message = "Invalid URL format")
+    @NotNull(message = "can't keep this field empty") 
     private String websiteUrl;
 
     @Column(name = "years")
