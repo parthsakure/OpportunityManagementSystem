@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import com.atc.opportunity_management_system.service.CompanyService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/companies")
+@RequestMapping("/company")
 public class CompanyController {
 
     @Autowired
@@ -47,6 +48,11 @@ public class CompanyController {
             return ResponseEntity.ok(company);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<Object> addCompany(@RequestBody @Valid Company company){
+        return companyService.addCompany(company);
     }
 
 }
