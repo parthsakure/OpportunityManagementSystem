@@ -33,6 +33,6 @@ public class Location {
     private Country country;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "location")
     private List<Company> companies = new ArrayList<>();
 }

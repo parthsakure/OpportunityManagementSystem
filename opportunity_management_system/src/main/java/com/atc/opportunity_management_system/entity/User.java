@@ -37,25 +37,25 @@ public class User implements UserDetails {
     private Long userId;
 
     @Column(name = "username", nullable = false, unique = true, length = 30 )
-    @NotNull(message = "can't keep this field empty")
+    //@NotNull(message = "can't keep this field empty")
     private String username;
 
     @Column(name = "firstName", nullable = false, length = 20)
-    @NotNull(message = "can't keep this field empty")
+    //@NotNull(message = "can't keep this field empty")
     private String firstName;
 
     @Column(name = "lastName", nullable = false, length = 30)
-    @NotNull(message = "can't keep this field empty")
+    //@NotNull(message = "can't keep this field empty")
     private String lastName;
 
     @Email(message = "insert valid emailId")
     @Column(name = "email", nullable = false)
-    @NotNull(message = "can't keep this field empty") 
+    //@NotNull(message = "can't keep this field empty") 
     private String email;
 
     @Column(name = "contactNo", nullable = true, length = 15)
     @Pattern(regexp = "^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", message = "invalid contact number")
-    @NotNull(message = "can't keep this field empty") 
+    //@NotNull(message = "can't keep this field empty") 
     private String contactNo;
 
     @Column(name = "bbdBucks", nullable = false, length = 7)

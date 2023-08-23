@@ -36,19 +36,19 @@ public class Opportunity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "opportunityId")
-    @NotNull(message = "can't keep this field empty") 
+    //@NotNull(message = "can't keep this field empty") 
     private int opportunityId;
 
     @Column(name = "title", nullable = false)
-    @NotNull(message = "can't keep this field empty") 
+    //@NotNull(message = "can't keep this field empty") 
     private String title;
 
     @Column(name = "description", nullable = false)
-    @NotNull(message = "can't keep this field empty")     
+    //@NotNull(message = "can't keep this field empty")     
     private String description;
 
     @Column(name = "primaryNeed", nullable = false)
-    @NotNull(message = "can't keep this field empty") 
+    //@NotNull(message = "can't keep this field empty") 
     private String primaryNeed;
 
     @Column(name = "expectedMonthlyRevenue", nullable = false)
@@ -67,7 +67,7 @@ public class Opportunity {
     @Value("true")
     private boolean active;
 
-    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
+    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
     // @JsonIgnore
     @JoinTable(name = "opportunity_usecase", joinColumns = @JoinColumn(name = "opportunity"), inverseJoinColumns = @JoinColumn(name = "useCase"))
     private List<UseCase> usecases = new ArrayList<>();

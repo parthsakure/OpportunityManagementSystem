@@ -28,7 +28,7 @@ public class Industry {
     private String industry;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "industry")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "industry")
     private List<Company> companies = new ArrayList<>();
 
 }

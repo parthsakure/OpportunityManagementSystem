@@ -40,11 +40,11 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/company/**", "/country/**").hasAnyRole("ADMIN", "EMPLOYEE")
             .requestMatchers(HttpMethod.POST, "/user/**").hasAnyRole("ADMIN")
 
-            .requestMatchers(HttpMethod.PUT, "/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/user/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/opportunity/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
 
-            .requestMatchers(HttpMethod.DELETE, "/opportunities/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/opportunity/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN")
             ;
 
         })
