@@ -3,6 +3,7 @@ package com.atc.opportunity_management_system.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +39,12 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    public ResponseEntity<Object> getAllUsers(boolean active) {
+        if(active){
+            return ResponseEntity.ok(userRepository.findByActive(active));
+        }
+        return ResponseEntity.ok(userRepository.findAll(null, Sort.by("username")));
     }
 }

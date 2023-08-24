@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -25,6 +26,7 @@ public class Industry {
     private int industryId;
 
     @Column(name = "industryName", unique = true, nullable = false)
+    @NotNull(message = "can't keep this field empty") 
     private String industry;
 
     @JsonIgnore
