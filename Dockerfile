@@ -3,5 +3,6 @@ COPY opportunity_management_system/ .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/OpportunityManagementSystem-0.0.1-SNAPSHOT.jar OpportunityManagementSystem.jar
 EXPOSE 8080
 ENTRYPOINT [ "java","-jar","OpportunityManagementSystem.jar" ]
