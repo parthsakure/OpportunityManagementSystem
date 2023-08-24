@@ -33,13 +33,12 @@ public class OpportunityController {
     private OpportunityService opportunityService;
 
     @PutMapping("/{id}")
-    private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity){
+    private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity) throws Exception{
         return opportunityService.updateOpportunity(id, newOpportunity);
     }
 
     @PostMapping("/")
     private Opportunity addOpportunity(@Valid @RequestBody Opportunity opportunity){
-
         return opportunityService.addOpportunity(opportunity);
     }
 
