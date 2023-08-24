@@ -35,6 +35,7 @@ public class OpportunityService {
 
 
   //method to create a transaction record
+  @Transactional
   private Transaction addTransactions(DealStage dealstage, Opportunity opportunity, User user)
   {
     Transaction transaction = new Transaction();
@@ -48,6 +49,7 @@ public class OpportunityService {
   }
 
   //method to reward bbdbucks to user
+  @Transactional
   private User addBbdBucks(User user, int rewardPrice)
   {
     user.setBbdBucks(user.getBbdBucks() + rewardPrice);
@@ -57,6 +59,7 @@ public class OpportunityService {
 
 
   //method to update an opportunity
+  @Transactional
   public Opportunity updateOpportunity(int opportunityid, Opportunity newOpportunity) throws Exception
   {
 
@@ -103,6 +106,7 @@ public class OpportunityService {
 
 
     //method to add a new opportunity
+    @Transactional
     public Opportunity addOpportunity(Opportunity opportunity)
     {
       //set the deal stage to prospect by deafult
