@@ -32,7 +32,6 @@ public class SecurityConfig {
         return http
         .authorizeHttpRequests(customizer->{
             customizer
-            // .anyRequest().permitAll()
             .requestMatchers("/authorize/**").permitAll()
             .requestMatchers(HttpMethod.GET, "/**").hasAnyRole("USER","ADMIN", "EMPLOYEE")
 
@@ -40,22 +39,24 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/company/**", "/country/**").hasAnyRole("ADMIN", "EMPLOYEE")
             .requestMatchers(HttpMethod.POST, "/user/**").hasAnyRole("ADMIN")
 
-            .requestMatchers(HttpMethod.PUT, "/users/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/opportunities/**").hasAnyRole("USER", "EMPLOYEE","ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/user/**").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/opportunity/**").hasAnyRole("USER","EMPLOYEE","ADMIN")
+            .requestMatchers(HttpMethod.PUT, "/company/**","/location/**","/country/**").hasAnyRole("EMPLOYEE","ADMIN")
 
-            .requestMatchers(HttpMethod.DELETE, "/opportunities/**").hasRole("ADMIN")
-            .requestMatchers(HttpMethod.DELETE, "/users/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/opportunity/**","/user/**","/company/**").hasRole("ADMIN")
             ;
-
         })
         .oauth2Login(cust->{
             cust
             .defaultSuccessUrl("/authorize",true);
         })
         .formLogin(Customizer.withDefaults())
-        .logout(cust->cust.logoutSuccessUrl("/logout"))
+        .logout(cust->cust
+            .clearAuthentication(true)
+            .logoutUrl("/logout")
+        )
         .csrf(cust->cust.disable())
-        .build();   
+        .build();
     }
 
 }

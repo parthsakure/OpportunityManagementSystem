@@ -3,6 +3,8 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -42,24 +44,25 @@ public class Company {
     @Column(name = "years")
     @Positive(message = "The company needs to be at least a year old")
     @Digits(fraction = 0, integer = 3, message = "Years can't be in fraction")
-    @NotNull(message = "Years cannot be null")
+    //@NotNull(message = "Years cannot be null")
     private Integer years;
 
     @Column(name = "active")
-    @NotNull(message = "Active cannot be null")
+    // //@NotNull(message = "Active cannot be null")
+    @Value("true")
     private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
     @JsonIgnore
     private List<User> users = new ArrayList<>();
 
-    @ManyToOne
-    @NotNull(message = "Industry cannot be null")
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+    // //@NotNull(message = "Industry cannot be null")
     @JoinColumn(name = "industry")
     private Industry industry;
 
-    @ManyToOne
-    @NotNull(message = "Location cannot be null")
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+    // //@NotNull(message = "Location cannot be null")
     @JoinColumn(name = "location")
     private Location location;
 

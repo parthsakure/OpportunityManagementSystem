@@ -1,7 +1,9 @@
 package com.atc.opportunity_management_system;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -23,6 +25,13 @@ public class OpportunityManagementSystemApplication implements RepositoryRestCon
 	public static void main(String[] args) {
 		SpringApplication.run(OpportunityManagementSystemApplication.class, args);
 	}
+
+    @Bean
+    public CommandLineRunner commandLineRunner(){
+        return res ->{
+            System.out.println("Server is Running");
+        };
+    }
 
 	@Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {

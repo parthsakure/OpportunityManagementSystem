@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 // import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,20 +33,19 @@ public class OpportunityController {
     private OpportunityService opportunityService;
 
     @PutMapping("/{id}")
-    private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity){
-
+    private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity) throws Exception{
         return opportunityService.updateOpportunity(id, newOpportunity);
     }
 
     @PostMapping("/")
     private Opportunity addOpportunity(@Valid @RequestBody Opportunity opportunity){
-
         return opportunityService.addOpportunity(opportunity);
     }
 
     @GetMapping("/{id}")
-    private Opportunity getOpportunityById(@PathVariable int id)
+    private Opportunity getOpportunityById(@PathVariable int id, @RequestParam boolean active)
     {
+        System.out.println(active);
         return opportunityService.getOpportunityById(id);
     }
 

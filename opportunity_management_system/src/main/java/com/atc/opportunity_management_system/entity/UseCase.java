@@ -28,7 +28,7 @@ public class UseCase {
     @Column(name="useCaseName", nullable = false)
     private String useCase;
 
-    @ManyToMany( cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany( cascade = { CascadeType.DETACH, CascadeType.REFRESH})
     @JsonIgnore
     @JoinTable(
         name="opportunity_usecase",
