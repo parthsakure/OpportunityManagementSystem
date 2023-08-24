@@ -1,6 +1,7 @@
 package com.atc.opportunity_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 // import org.springframework.http.HttpStatus;
 // import org.springframework.http.ResponseEntity;
 // import org.springframework.web.ErrorResponse;
@@ -32,21 +33,29 @@ public class OpportunityController {
     @Autowired
     private OpportunityService opportunityService;
 
+    @GetMapping("/")
+    private ResponseEntity<Object> getOpportunityByUser()
+    {
+        return opportunityService.getOpportunitiesByUser();
+    }
+
+    @GetMapping("/{id}")
+    private ResponseEntity<Object> getOpportunityById(@PathVariable int id, @RequestParam boolean active)
+    {
+        System.out.println(active);
+        return opportunityService.getOpportunityById(id);
+    }
+
     @PutMapping("/{id}")
-    private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity) throws Exception{
+    private Opportunity updateOpportunity(@PathVariable int id, @RequestBody @Valid Opportunity newOpportunity) throws Exception
+    {
         return opportunityService.updateOpportunity(id, newOpportunity);
     }
 
     @PostMapping("/")
-    private Opportunity addOpportunity(@Valid @RequestBody Opportunity opportunity){
-        return opportunityService.addOpportunity(opportunity);
-    }
-
-    @GetMapping("/{id}")
-    private Opportunity getOpportunityById(@PathVariable int id, @RequestParam boolean active)
+    private Opportunity addOpportunity(@Valid @RequestBody Opportunity opportunity)
     {
-        System.out.println(active);
-        return opportunityService.getOpportunityById(id);
+        return opportunityService.addOpportunity(opportunity);
     }
 
     @DeleteMapping("/{id}")

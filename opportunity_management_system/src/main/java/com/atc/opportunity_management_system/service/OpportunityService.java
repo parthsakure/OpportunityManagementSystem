@@ -1,12 +1,21 @@
 package com.atc.opportunity_management_system.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 // import com.atc.opportunity_management_system.entity.Company;
 import com.atc.opportunity_management_system.entity.DealStage;
+import com.atc.opportunity_management_system.entity.ErrorMessage;
 import com.atc.opportunity_management_system.entity.Opportunity;
 import com.atc.opportunity_management_system.entity.Transaction;
 import com.atc.opportunity_management_system.entity.User;
@@ -16,6 +25,8 @@ import com.atc.opportunity_management_system.repository.OpportunityRepository;
 import com.atc.opportunity_management_system.repository.TransactionRepository;
 import com.atc.opportunity_management_system.repository.UserRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -32,6 +43,9 @@ public class OpportunityService {
 
   @Autowired
   TransactionRepository transactionRepository;
+
+  @Autowired
+  EntityManager entityManager;
 
 
   //method to create a transaction record
@@ -64,6 +78,7 @@ public class OpportunityService {
     boolean isAdmin = loggedInUser.getAuthorities().stream().anyMatch(auth->auth.getAuthority().equals("ROLE_ADMIN"));
     // System.out.println(isAdmin);
     // System.out.println("***********************************");
+
     //getting the existing opportunity
     Opportunity opportunitytoupdate = opportunityRepository.findById(opportunityid)
     .orElseThrow(() -> new OpportunityNotFoundException(opportunityid));
@@ -90,6 +105,7 @@ public class OpportunityService {
       addBbdBucks(usertogetbbdbucks, dealStageRepository.findById(newOpportunity.getDealStage().getDealStageId()).get().getRewardPrice());
 
     }
+
     //if updating user is not admin then 
     else
     {
@@ -102,59 +118,94 @@ public class OpportunityService {
   }
 
 
-    //method to add a new opportunity
-    public Opportunity addOpportunity(Opportunity opportunity)
+  //method to add a new opportunity
+  public Opportunity addOpportunity(Opportunity opportunity)
+  {
+    //set the deal stage to prospect by deafult
+    opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect").get());
+    opportunity.setActive(true);
+
+    //save opportunity
+    opportunityRepository.save(opportunity);
+    
+    //get user who submitted opportunity
+    User usertogetbbdbucks = userrepository.findById(opportunity.getDealOwner().getUserId()).get();
+    
+    //add to transactions table
+    addTransactions(dealStageRepository.findByDealStage("Prospect").get(), opportunity, usertogetbbdbucks);
+    
+    //addbbdbucks to the user
+    opportunity.setDealOwner(addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").get().getRewardPrice()));
+    
+    return opportunity;
+  }
+
+
+  //method to get a opportunity by id
+  public ResponseEntity<Object> getOpportunityById(int id)
+  {
+    //find the opportunity
+    Optional<Opportunity> opportunity = opportunityRepository.findById(id);
+
+    if(!opportunity.isPresent())
     {
-      //set the deal stage to prospect by deafult
-      opportunity.setDealStage(dealStageRepository.findByDealStage("Prospect").get());
-      opportunity.setActive(true);
-
-      //save opportunity
-      opportunityRepository.save(opportunity);
-      
-      //get user who submitted opportunity
-      User usertogetbbdbucks = userrepository.findById(opportunity.getDealOwner().getUserId()).get();
-      
-      //add to transactions table
-      addTransactions(dealStageRepository.findByDealStage("Prospect").get(), opportunity, usertogetbbdbucks);
-      
-      //addbbdbucks to the user
-      opportunity.setDealOwner(addBbdBucks(usertogetbbdbucks, dealStageRepository.findByDealStage("Prospect").get().getRewardPrice()));
-      
-      return opportunity;
+      return new ResponseEntity<Object>(new ErrorMessage("No opportunity with this ID",HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
+    //return
+    return ResponseEntity.ok(opportunity);
+  }
 
-    //method to get a opportunity by id
-    public Opportunity getOpportunityById(int id)
+
+  //in progress
+  @Transactional
+  public void deleteOpportunity(int Id , Opportunity closedReason)
+  { 
+      
+      //get opportunity to delete
+      Opportunity opportunity = opportunityRepository.findById(Id)
+      .orElseThrow(() -> new OpportunityNotFoundException(Id));
+
+      //set as inactive if it is active
+      if(opportunity.isActive())
+      {
+          opportunity.setActive(false); 
+          opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost").get());  
+          opportunity.setClosedLostReason(closedReason.getClosedLostReason());
+          opportunityRepository.save(opportunity);
+      }
+  }
+
+  //method to get active opportunities by user
+  public ResponseEntity<Object> getOpportunitiesByUser()
+  {
+
+    //get user information
+    User user = userrepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+
+    //show all opportunities for admins
+    if (user.getRole().getRole().equals("ROLE_ADMIN"))
     {
-      //find the opportunity
-      Opportunity opportunity = opportunityRepository.findById(id)
-      .orElseThrow(() -> new OpportunityNotFoundException(id));
-
-      //return
-      return opportunity;
+      return ResponseEntity.ok(opportunityRepository.findAll());
     }
 
+    //get the active opportunities for the user
+    TypedQuery<Opportunity> query = entityManager.createQuery("Select o from Opportunity o where o.dealOwner =?1 AND o.active = true", Opportunity.class);
+    query.setParameter(1, user);
+    List<Opportunity> opportunities = query.getResultList();
 
-
-    //in progress
-    @Transactional
-    public void deleteOpportunity(int Id , Opportunity closedReason)
-    { 
-        
-        //get opportunity to delete
-        Opportunity opportunity = opportunityRepository.findById(Id)
-        .orElseThrow(() -> new OpportunityNotFoundException(Id));
-
-        //set as inactive if it is active
-        if(opportunity.isActive())
-        {
-            opportunity.setActive(false); 
-            opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost").get());  
-            opportunity.setClosedLostReason(closedReason.getClosedLostReason());
-            opportunityRepository.save(opportunity);
-        }
+    //if there are no opportunities
+    if (opportunities.isEmpty())
+    {
+      System.out.println("error");
+        return new ResponseEntity<Object>(new ErrorMessage("No opportunities for this user",HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
+
+    //return
+    return ResponseEntity.ok(opportunities);
+    
+  }
+
+
 
 }
