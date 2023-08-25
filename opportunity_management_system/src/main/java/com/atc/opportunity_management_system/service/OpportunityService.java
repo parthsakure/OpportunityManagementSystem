@@ -33,7 +33,7 @@ public class OpportunityService {
   OpportunityRepository opportunityRepository;
 
   @Autowired
-  UserRepository userrepository;
+  UserRepository userRepository;
 
   @Autowired
   DealStageRepository dealStageRepository;
@@ -64,7 +64,7 @@ public class OpportunityService {
   private User addBbdBucks(User user, int rewardPrice)
   {
     user.setBbdBucks(user.getBbdBucks() + rewardPrice);
-    return userrepository.save(user);
+    return userRepository.save(user);
   }
 
 
@@ -96,7 +96,7 @@ public class OpportunityService {
     if(isAdmin && opportunitytoupdate.getDealStage().getDealStageId() < newOpportunity.getDealStage().getDealStageId()){
 
       //identifying which user to give bbd bucks to
-      User usertogetbbdbucks = userrepository.findById(newOpportunity.getDealOwner().getUserId()).get();
+      User usertogetbbdbucks = userRepository.findById(newOpportunity.getDealOwner().getUserId()).get();
 
       //add to transactions table
       addTransactions(newOpportunity.getDealStage(), newOpportunity, usertogetbbdbucks);
@@ -130,7 +130,7 @@ public class OpportunityService {
     opportunityRepository.save(opportunity);
     
     //get user who submitted opportunity
-    User usertogetbbdbucks = userrepository.findById(opportunity.getDealOwner().getUserId()).get();
+    User usertogetbbdbucks = userRepository.findById(opportunity.getDealOwner().getUserId()).get();
     
     //add to transactions table
     addTransactions(dealStageRepository.findByDealStage("Prospect").get(), opportunity, usertogetbbdbucks);
@@ -182,7 +182,7 @@ public class OpportunityService {
   {
 
     //get user information
-    User user = userrepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+    User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
 
     //show all opportunities for admins
     if (user.getRole().getRole().equals("ROLE_ADMIN"))

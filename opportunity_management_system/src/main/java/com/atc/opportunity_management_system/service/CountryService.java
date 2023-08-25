@@ -20,8 +20,7 @@ public class CountryService {
 
     public ResponseEntity<Object> getAllCountries()
     {
-        List<Country> countries = new ArrayList<>();
-        countries = countryRepository.findAll();
+        List<Country> countries = countryRepository.findAll();
 
         if(countries.isEmpty())
         {
