@@ -6,6 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.atc.opportunity_management_system.entity.DeliveryModel;
 
 @RepositoryRestResource(path="deliverymodels")
-public interface DeliveryModelRepository extends JpaRepository<DeliveryModel,Integer> {
+public interface DeliveryModelRepository extends JpaRepository<DeliveryModel,Long> {
     
 }

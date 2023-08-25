@@ -17,8 +17,18 @@ public class DeliveryModelService {
         return ResponseEntity.ok().body(deliveryModelRepository.findAll());
     }
 
-    public DeliveryModel getDeliveryModel(int id) {
+    public DeliveryModel getDeliveryModel(Long id) {
         return deliveryModelRepository.findById(id).orElse(null);
+    }
+
+    public ResponseEntity<Object> addDeliveryModel(DeliveryModel deliveryModel) {
+        deliveryModel.setDeliveryModelId(0*1L);
+        return ResponseEntity.ok(deliveryModelRepository.save(deliveryModel));
+    }
+
+    public ResponseEntity<Object> deleteDeliveryModel(Long id) {
+        deliveryModelRepository.deleteById(id);
+        return ResponseEntity.ok("Delivery Model Successfully Deleted!");
     }
 
     
