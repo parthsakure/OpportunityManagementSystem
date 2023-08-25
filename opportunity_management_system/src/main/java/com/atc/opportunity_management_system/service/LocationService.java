@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.atc.opportunity_management_system.entity.Country;
 import com.atc.opportunity_management_system.entity.ErrorMessage;
-import com.atc.opportunity_management_system.entity.Industry;
 import com.atc.opportunity_management_system.entity.Location;
 import com.atc.opportunity_management_system.repository.CountryRepository;
 import com.atc.opportunity_management_system.repository.IndustryRepository;

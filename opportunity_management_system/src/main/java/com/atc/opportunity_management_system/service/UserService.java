@@ -1,18 +1,12 @@
 package com.atc.opportunity_management_system.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.atc.opportunity_management_system.entity.User;
-import com.atc.opportunity_management_system.repository.CompanyRepository;
 import com.atc.opportunity_management_system.repository.UserRepository;
-
-import jakarta.validation.Valid;
-
 @Service
 public class UserService {
 
