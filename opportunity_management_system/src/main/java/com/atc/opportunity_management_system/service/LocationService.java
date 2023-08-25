@@ -1,5 +1,6 @@
 package com.atc.opportunity_management_system.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,23 @@ public class LocationService {
     {
         Optional<Country> country = countryRepository.findById( location.getCountry().getCountryId());
         if(!country.isPresent()){
-            return new ResponseEntity<Object>(new ErrorMessage("Enter Valid Country ID",HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Object>(new ErrorMessage("Enter Valid Country ID",HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
         }   
         
         location.setCountry(country.get());
 
         return ResponseEntity.ok(locationRepository.save(location));
+    }
+
+    public ResponseEntity<Object> getAllLocations() {
+        List<Location> locations = locationRepository.findAll();
+        if(locations.isEmpty()){
+            return new ResponseEntity<>(new ErrorMessage("No locations Found!", HttpStatus.NOT_FOUND.value()),HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(locations);
+    }
+
+    public Location getLocation(Long id) {
+        return locationRepository.findById(id).orElse(null);
     }
 }
