@@ -29,12 +29,12 @@ public class UseCase {
     private String useCase;
 
     @ManyToMany( cascade = { CascadeType.DETACH, CascadeType.REFRESH})
-    @JsonIgnore
     @JoinTable(
         name="opportunity_usecase",
         joinColumns=@JoinColumn(name="useCase"),
         inverseJoinColumns=@JoinColumn(name="opportunity")
     )
+    @JsonIgnore
     private List<Opportunity> opportunities = new ArrayList<>();
 
 }

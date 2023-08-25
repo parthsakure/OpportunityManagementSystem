@@ -28,8 +28,8 @@ public class Role {
     @Column(name = "roleName", nullable = false)
     private String role;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
 }

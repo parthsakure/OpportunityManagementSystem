@@ -1,8 +1,6 @@
 package com.atc.opportunity_management_system.entity;
 
-import org.springframework.http.HttpStatus;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
