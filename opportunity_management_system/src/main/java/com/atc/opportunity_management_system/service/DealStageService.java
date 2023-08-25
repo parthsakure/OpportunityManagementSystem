@@ -1,6 +1,5 @@
 package com.atc.opportunity_management_system.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,40 +9,40 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.atc.opportunity_management_system.entity.DealStage;
 import com.atc.opportunity_management_system.entity.ErrorMessage;
-import com.atc.opportunity_management_system.entity.Role;
-import com.atc.opportunity_management_system.repository.RoleRepository;
+import com.atc.opportunity_management_system.repository.DealStageRepository;
 
 @Service
-public class RoleService {
-    
-    @Autowired
-    RoleRepository roleRepository;
+public class DealStageService {
 
-    //method to get all roles
-    public ResponseEntity<Object> getAllRoles()
-    {   
-        //get if user is admin or not
+    @Autowired
+    DealStageRepository dealStageRepository;
+
+    //method to get all deal stages
+    public ResponseEntity<Object> getAllDealStages()
+    {
+        //check if user is admin
         Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
         boolean isAdmin = loggedInUser.getAuthorities().stream().anyMatch(auth->auth.getAuthority().equals("ROLE_ADMIN"));
-
+        
         if(isAdmin)
-        {   
-            //get all roles
-            List<Role> roles = roleRepository.findAll();
+        {
+            //get all deal stages
+            List<DealStage> dealStages = dealStageRepository.findAll();
 
-            //throw message if there are no roles
-            if(roles.isEmpty())
+            //if there are no deal stages
+            if(dealStages.isEmpty())
             {
-                return new ResponseEntity<Object>(new ErrorMessage("No Roles Present",HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);               
+                return new ResponseEntity<Object>(new ErrorMessage("No Deal Stages Present",HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);                             
             }
-            
-            //return all roles
-            return ResponseEntity.ok(roles);
-        }
 
+            //return all deal stages
+            return ResponseEntity.ok(dealStages);
+        }
+        
         //if user is not admin
         return new ResponseEntity<Object>(new ErrorMessage("You are not an admin",HttpStatus.BAD_REQUEST.value()), HttpStatus.BAD_REQUEST);
     }
-    
+
 }
