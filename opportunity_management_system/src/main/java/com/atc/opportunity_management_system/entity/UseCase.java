@@ -3,7 +3,7 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,7 +29,6 @@ public class UseCase {
     private String useCase;
 
     @ManyToMany( cascade = { CascadeType.DETACH, CascadeType.REFRESH})
-    @JsonIgnore
     @JoinTable(
         name="opportunity_usecase",
         joinColumns=@JoinColumn(name="useCase"),

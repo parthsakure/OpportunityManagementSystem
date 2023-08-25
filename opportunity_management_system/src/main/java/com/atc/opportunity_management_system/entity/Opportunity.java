@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import io.micrometer.common.lang.Nullable;
 import lombok.Data;
@@ -66,7 +66,6 @@ public class Opportunity {
     private boolean active;
 
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
-    // @JsonIgnore
     @JoinTable(name = "opportunity_usecase", joinColumns = @JoinColumn(name = "opportunity"), inverseJoinColumns = @JoinColumn(name = "useCase"))
     private List<UseCase> usecases = new ArrayList<>();
 
@@ -82,7 +81,6 @@ public class Opportunity {
     @JoinColumn(name = "userDetails")
     private User dealOwner;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
     private List<Transaction> transactions;
 }

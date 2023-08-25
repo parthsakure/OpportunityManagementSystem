@@ -3,7 +3,7 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
@@ -29,7 +29,6 @@ public class Industry {
     @NotNull(message = "can't keep this field empty") 
     private String industry;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "industry")
     private List<Company> companies = new ArrayList<>();
 
