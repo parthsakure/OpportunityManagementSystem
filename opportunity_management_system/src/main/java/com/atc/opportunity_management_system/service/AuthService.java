@@ -1,5 +1,6 @@
 package com.atc.opportunity_management_system.service;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -49,7 +50,14 @@ public class AuthService {
     }
 
     public Object getAuthUser() {
-        User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
-        return user;
+        Optional<User> user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(!user.isPresent()){
+            Map<String,Object>localUser = new HashMap<String,Object>();
+            localUser.put("name", SecurityContextHolder.getContext().getAuthentication().getName());
+            localUser.put("Credentials", SecurityContextHolder.getContext().getAuthentication().getCredentials());
+            localUser.put("authorities", SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+            return localUser;
+        }
+        return user.get();
     }
 }

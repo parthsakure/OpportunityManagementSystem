@@ -32,12 +32,12 @@ public class DealStage {
     @NotEmpty
     private int rewardPrice;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealStage")
+    @JsonIgnore
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealStage")
+    @JsonIgnore
     private List<Transaction> transactions = new ArrayList<>();
 
 }

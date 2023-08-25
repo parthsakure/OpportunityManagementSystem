@@ -29,8 +29,8 @@ public class Industry {
     @NotNull(message = "can't keep this field empty") 
     private String industry;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "industry")
+    @JsonIgnore
     private List<Company> companies = new ArrayList<>();
 
 }
