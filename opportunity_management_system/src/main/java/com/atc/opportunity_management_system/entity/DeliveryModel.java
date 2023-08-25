@@ -3,7 +3,7 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
@@ -29,6 +29,7 @@ public class DeliveryModel {
     private String deliveryModel;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliveryModel")
+    @JsonIgnore
     private List<Opportunity> opportunities = new ArrayList<>();
 
 }

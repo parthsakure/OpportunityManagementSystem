@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.micrometer.common.lang.Nullable;
 import lombok.Data;
@@ -82,5 +82,6 @@ public class Opportunity {
     private User dealOwner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
+    @JsonIgnore
     private List<Transaction> transactions;
 }

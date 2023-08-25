@@ -3,7 +3,7 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
@@ -37,5 +37,6 @@ public class Location {
     private Country country;
 
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "location")
+    @JsonIgnore
     private List<Company> companies = new ArrayList<>();
 }

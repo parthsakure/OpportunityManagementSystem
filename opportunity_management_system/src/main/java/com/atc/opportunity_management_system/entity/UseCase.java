@@ -3,7 +3,7 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,6 +34,7 @@ public class UseCase {
         joinColumns=@JoinColumn(name="useCase"),
         inverseJoinColumns=@JoinColumn(name="opportunity")
     )
+    @JsonIgnore
     private List<Opportunity> opportunities = new ArrayList<>();
 
 }

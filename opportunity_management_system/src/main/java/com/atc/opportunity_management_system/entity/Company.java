@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -53,6 +53,7 @@ public class Company {
     private Boolean active;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})

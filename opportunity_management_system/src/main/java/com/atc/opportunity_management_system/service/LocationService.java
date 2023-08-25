@@ -45,7 +45,7 @@ public class LocationService {
         
         location.setCountry(country.get());
 
-        return ResponseEntity.ok(locationRepository.save(location));
+        return new ResponseEntity<Object>(locationRepository.save(location),HttpStatus.CREATED);
     }
 
     public ResponseEntity<Object> getAllLocations() {

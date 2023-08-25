@@ -11,7 +11,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
@@ -29,6 +29,7 @@ public class Role {
     private String role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
 }

@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 
@@ -74,9 +74,11 @@ public class User implements UserDetails {
     private Company company;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealOwner")
+    @JsonIgnore
     private List<Opportunity> opportunities;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Transaction> transactions;
 
     @Override

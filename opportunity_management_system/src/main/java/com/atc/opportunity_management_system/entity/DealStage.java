@@ -3,7 +3,7 @@ package com.atc.opportunity_management_system.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,9 +33,11 @@ public class DealStage {
     private int rewardPrice;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealStage")
+    @JsonIgnore
     private List<Opportunity> opportunities = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealStage")
+    @JsonIgnore
     private List<Transaction> transactions = new ArrayList<>();
 
 }
