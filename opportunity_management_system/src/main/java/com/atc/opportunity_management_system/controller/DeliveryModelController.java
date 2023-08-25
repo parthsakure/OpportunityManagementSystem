@@ -13,7 +13,7 @@ import com.atc.opportunity_management_system.entity.ErrorMessage;
 import com.atc.opportunity_management_system.service.DeliveryModelService;
 
 @RestController
-@RequestMapping("/deliverymodels")
+@RequestMapping("/deliverymodel")
 public class DeliveryModelController {
 
     @Autowired
