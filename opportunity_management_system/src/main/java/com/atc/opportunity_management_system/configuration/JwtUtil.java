@@ -1,11 +1,12 @@
 // package com.atc.opportunity_management_system.configuration;
 
+// import java.security.Key;
 // import java.util.Date;
 // import java.util.HashMap;
 // import java.util.Map;
 // import java.util.function.Function;
 
-// import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt;
+// import org.springframework.security.core.userdetails.UserDetails;
 // import org.springframework.stereotype.Service;
 
 // import com.atc.opportunity_management_system.entity.User;
@@ -16,7 +17,8 @@
 
 // @Service
 // public class JwtUtil {
-//     private String SECRET_KEY = "Helloworld";
+//     private String SECRET_KEY = "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";
+//     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
 //     public String generateToken(User user){
 //         Map<String, Object>claims = new HashMap<>();
@@ -26,21 +28,25 @@
 
 //     private String createToken(Map<String, Object> claims, String username) {
 //         return Jwts.builder()
-//             .setClaims(claims)
-//             .setSubject(username)
-//             .setIssuedAt(new Date(System.currentTimeMillis()))
-//             .setExpiration(new Date(System.currentTimeMillis() + 1000*60*60))
-//             .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-//             .compact();
+//         .setClaims(claims)
+//         .setSubject(username)
+//         .setIssuedAt(new Date(System.currentTimeMillis()))
+//         .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
+//         .signWith(SignatureAlgorithm.RS256, SECRET_KEY)
+//         .compact();
 //     }
 
-//     public boolean validateToken(String token, User user){
+//     public boolean validateToken(String token, UserDetails user){
 //         final String username = extractUserName(token);
 //         return (username.equals(user.getUsername()) && !isExpired(token));
 //     }
 
 //     private Claims extractAllClaims(String token){
-//         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+//         return Jwts
+//         .parser()
+//         .setSigningKey(SECRET_KEY)
+//         .parseClaimsJws(token)
+//         .getBody();
 //     }
 
 //     public <T> T extractClaim(String token, Function<Claims,T> claimsResover){
