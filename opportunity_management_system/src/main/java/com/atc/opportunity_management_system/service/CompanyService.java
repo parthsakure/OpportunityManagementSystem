@@ -72,7 +72,7 @@ public class CompanyService {
         }
         company.setIndustry(industry.get());
         company.setLocation(location.get());
-        return ResponseEntity.ok(companyRepository.save(company));
+        return new ResponseEntity(companyRepository.save(company),HttpStatus.CREATED);
         
     }
 

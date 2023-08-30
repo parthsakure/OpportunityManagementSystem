@@ -28,8 +28,8 @@ public class DeliveryModel {
     // @NotEmpty
     private String deliveryModel;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliveryModel")
+    @JsonIgnore
     private List<Opportunity> opportunities = new ArrayList<>();
 
 }

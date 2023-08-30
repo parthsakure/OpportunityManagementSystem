@@ -36,7 +36,7 @@ public class Location {
     @JoinColumn(name = "country")
     private Country country;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "location")
+    @JsonIgnore
     private List<Company> companies = new ArrayList<>();
 }

@@ -23,7 +23,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
@@ -74,12 +73,12 @@ public class User implements UserDetails {
     @JoinColumn(name = "company")
     private Company company;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "dealOwner")
+    @JsonIgnore
     private List<Opportunity> opportunities;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonIgnore
     private List<Transaction> transactions;
 
     @Override

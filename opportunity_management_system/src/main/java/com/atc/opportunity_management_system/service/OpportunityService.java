@@ -1,12 +1,9 @@
 package com.atc.opportunity_management_system.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -36,7 +33,7 @@ public class OpportunityService {
   OpportunityRepository opportunityRepository;
 
   @Autowired
-  UserRepository userrepository;
+  UserRepository userRepository;
 
   @Autowired
   DealStageRepository dealStageRepository;
@@ -67,7 +64,7 @@ public class OpportunityService {
   private User addBbdBucks(User user, int rewardPrice)
   {
     user.setBbdBucks(user.getBbdBucks() + rewardPrice);
-    return userrepository.save(user);
+    return userRepository.save(user);
   }
 
 
@@ -99,7 +96,7 @@ public class OpportunityService {
     if(isAdmin && opportunitytoupdate.getDealStage().getDealStageId() < newOpportunity.getDealStage().getDealStageId()){
 
       //identifying which user to give bbd bucks to
-      User usertogetbbdbucks = userrepository.findById(newOpportunity.getDealOwner().getUserId()).get();
+      User usertogetbbdbucks = userRepository.findById(newOpportunity.getDealOwner().getUserId()).get();
 
       //add to transactions table
       addTransactions(newOpportunity.getDealStage(), newOpportunity, usertogetbbdbucks);
@@ -133,7 +130,7 @@ public class OpportunityService {
     opportunityRepository.save(opportunity);
     
     //get user who submitted opportunity
-    User usertogetbbdbucks = userrepository.findById(opportunity.getDealOwner().getUserId()).get();
+    User usertogetbbdbucks = userRepository.findById(opportunity.getDealOwner().getUserId()).get();
     
     //add to transactions table
     addTransactions(dealStageRepository.findByDealStage("Prospect").get(), opportunity, usertogetbbdbucks);
@@ -185,7 +182,7 @@ public class OpportunityService {
   {
 
     //get user information
-    User user = userrepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
+    User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
 
     //show all opportunities for admins
     if (user.getRole().getRole().equals("ROLE_ADMIN"))
@@ -194,7 +191,7 @@ public class OpportunityService {
     }
 
     //get the active opportunities for the user
-    TypedQuery<Opportunity> query = entityManager.createQuery("Select o from Opportunity o where o.dealOwner =?1 AND o.active = true", Opportunity.class);
+    TypedQuery<Opportunity> query = entityManager.createQuery("Select o from Opportunity o where o.dealOwner =?1", Opportunity.class);
     query.setParameter(1, user);
     List<Opportunity> opportunities = query.getResultList();
 

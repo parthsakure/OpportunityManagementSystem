@@ -3,7 +3,6 @@ package com.atc.opportunity_management_system.entity;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +24,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -68,7 +66,6 @@ public class Opportunity {
     private boolean active;
 
     @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.REFRESH })
-    // @JsonIgnore
     @JoinTable(name = "opportunity_usecase", joinColumns = @JoinColumn(name = "opportunity"), inverseJoinColumns = @JoinColumn(name = "useCase"))
     private List<UseCase> usecases = new ArrayList<>();
 
@@ -84,7 +81,7 @@ public class Opportunity {
     @JoinColumn(name = "userDetails")
     private User dealOwner;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opportunity")
+    @JsonIgnore
     private List<Transaction> transactions;
 }
