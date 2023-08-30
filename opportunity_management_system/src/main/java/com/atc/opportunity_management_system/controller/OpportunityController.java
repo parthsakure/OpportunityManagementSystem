@@ -2,6 +2,7 @@ package com.atc.opportunity_management_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 // import org.springframework.http.HttpStatus;
 // import org.springframework.http.ResponseEntity;
 // import org.springframework.web.ErrorResponse;
@@ -26,6 +27,7 @@ import com.atc.opportunity_management_system.service.OpportunityService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin
 @RequestMapping("opportunity")
 public class OpportunityController {
 
