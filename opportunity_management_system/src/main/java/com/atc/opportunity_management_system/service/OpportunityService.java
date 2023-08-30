@@ -191,7 +191,7 @@ public class OpportunityService {
     }
 
     //get the active opportunities for the user
-    TypedQuery<Opportunity> query = entityManager.createQuery("Select o from Opportunity o where o.dealOwner =?1 AND o.active = true", Opportunity.class);
+    TypedQuery<Opportunity> query = entityManager.createQuery("Select o from Opportunity o where o.dealOwner =?1", Opportunity.class);
     query.setParameter(1, user);
     List<Opportunity> opportunities = query.getResultList();
 
