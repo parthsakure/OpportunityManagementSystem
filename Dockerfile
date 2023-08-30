@@ -1,3 +1,4 @@
+
 FROM maven:3.8.3-openjdk-17 AS build
 COPY opportunity_management_system/ .
 RUN mvn clean package -DskipTests
