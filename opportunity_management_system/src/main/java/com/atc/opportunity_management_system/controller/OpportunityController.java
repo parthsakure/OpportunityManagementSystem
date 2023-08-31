@@ -1,5 +1,7 @@
 package com.atc.opportunity_management_system.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,7 +46,6 @@ public class OpportunityController {
     @GetMapping("/{id}")
     private ResponseEntity<Object> getOpportunityById(@PathVariable int id, @RequestParam boolean active)
     {
-        System.out.println(active);
         return opportunityService.getOpportunityById(id);
     }
 
@@ -61,9 +62,9 @@ public class OpportunityController {
     }
 
     @DeleteMapping("/{id}")
-    private void deleteOpportunity(@PathVariable int id,@RequestBody Opportunity delOpportunity)
+    private void deleteOpportunity(@PathVariable int id)
     {
-        opportunityService.deleteOpportunity(id, delOpportunity);
+        opportunityService.deleteOpportunity(id);
     }
 
 }

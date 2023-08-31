@@ -59,7 +59,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 claims = jwt.getJWTClaimsSet();
                 name = claims.getStringClaim("name").split(" ");
                 userEmail = claims.getStringClaim("email");
-                System.out.println();
                 
                 username = claims.getStringClaim("email").split("@")[0];
 

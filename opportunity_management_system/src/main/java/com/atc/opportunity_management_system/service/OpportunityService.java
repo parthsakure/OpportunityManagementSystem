@@ -1,6 +1,7 @@
 package com.atc.opportunity_management_system.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,7 +161,7 @@ public class OpportunityService {
 
   //in progress
   @Transactional
-  public void deleteOpportunity(int Id , Opportunity closedReason)
+  public void deleteOpportunity(int Id)
   { 
       
       //get opportunity to delete
@@ -172,7 +173,7 @@ public class OpportunityService {
       {
           opportunity.setActive(false); 
           opportunity.setDealStage(dealStageRepository.findByDealStage("Closed Lost").get());  
-          opportunity.setClosedLostReason(closedReason.getClosedLostReason());
+          // opportunity.setClosedLostReason(reason.get("reason"));
           opportunityRepository.save(opportunity);
       }
   }
