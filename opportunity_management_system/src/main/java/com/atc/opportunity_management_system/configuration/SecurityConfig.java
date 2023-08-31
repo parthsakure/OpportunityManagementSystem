@@ -1,6 +1,10 @@
 package com.atc.opportunity_management_system.configuration;
 
 import org.springframework.security.core.userdetails.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -73,7 +77,15 @@ public class SecurityConfig implements WebMvcConfigurer {
     
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        List<HttpMethod> methods = new ArrayList<>();
+        methods.add(HttpMethod.GET);
+        methods.add(HttpMethod.POST);
+        methods.add(HttpMethod.PUT);
+        methods.add(HttpMethod.DELETE);
+        CorsConfiguration config = new CorsConfiguration();
+        config.applyPermitDefaultValues();
+        config.addAllowedMethod(HttpMethod.PUT);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
 }
