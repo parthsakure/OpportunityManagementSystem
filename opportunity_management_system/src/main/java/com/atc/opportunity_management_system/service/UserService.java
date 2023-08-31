@@ -41,4 +41,8 @@ public class UserService {
         }
         return ResponseEntity.ok(userRepository.findAll());
     }
+
+    public User getUser(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 }

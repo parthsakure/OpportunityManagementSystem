@@ -3,6 +3,7 @@ package com.atc.opportunity_management_system.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +47,17 @@ public class UserController {
     @GetMapping("/")
     public ResponseEntity<Object> getAllUsers(@RequestParam(required = false) boolean active){
         return userService.getAllUsers(active);
+    }
+
+    
+    @GetMapping("/{id}")
+    @PreAuthorize("ROLE_ADMIN")
+    public ResponseEntity<Object> getUser(@PathVariable Long id){
+        User user = userService.getUser(id);
+        if(user==null){
+            return new ResponseEntity<Object>(new ErrorMessage("User Not Found id: "+id, HttpStatus.NOT_FOUND.value()), null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(user);
     }
 
 
