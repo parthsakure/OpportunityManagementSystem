@@ -39,6 +39,6 @@ public class UserService {
         if(active){
             return ResponseEntity.ok(userRepository.findByActive(active));
         }
-        return ResponseEntity.ok(userRepository.findAll(null, Sort.by("username")));
+        return ResponseEntity.ok(userRepository.findAll());
     }
 }
