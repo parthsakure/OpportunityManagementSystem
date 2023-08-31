@@ -16,13 +16,13 @@ public class TransactionController {
     TransactionService transactionService;
 
     @GetMapping("/")
-    private ResponseEntity<Object> getAllOpportunities()
+    private ResponseEntity<Object> getAllTransactions()
     {
         return transactionService.getAllTransactions();
     }
 
     @GetMapping("/mytransactions")
-    private ResponseEntity<Object> getMyOpportunities()
+    private ResponseEntity<Object> getMyTransactions()
     {
         return transactionService.getMyTransactions();
     }
