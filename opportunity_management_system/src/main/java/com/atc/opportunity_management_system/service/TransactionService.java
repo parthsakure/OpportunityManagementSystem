@@ -60,13 +60,14 @@ public class TransactionService {
     public ResponseEntity<Object> getMyTransactions()
     {
         //get user information
+        // System.out.println("HELLO");
         User user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).get();
 
         //get transactions of user
-        TypedQuery<Transaction> query = entityManager.createQuery("Select o from Transaction o where o.userId =?1", Transaction.class);
-        query.setParameter(1, user);
-        List<Transaction> transactions = query.getResultList();
-        
+        // TypedQuery<Transaction> query = entityManager.createQuery("Select o from Transaction o where o.user=?1", Transaction.class);
+        // query.setParameter(1, user);
+        List<Transaction> transactions = transactionRepository.findByUser(user);
+        // System.out.println(transactions);
         //if no transactions are present
         if(transactions.isEmpty())
         {
